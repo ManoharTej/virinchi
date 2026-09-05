@@ -1,13 +1,13 @@
 // VIRINCHI — THE CULTURAL CLUB OF VBIT
-// Main Application Controller & Route Registry
+// Main Application Controller & Route Registry (Intro removed per user request)
 
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 
 // Layout Components
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
-import CinematicIntro from './components/intro/CinematicIntro';
+import CulturalMusicBackground from './components/ui/CulturalMusicBackground';
 
 // Pages
 import Home from './pages/Home';
@@ -33,40 +33,20 @@ function ScrollToTop() {
 }
 
 export default function App() {
-  const [showIntro, setShowIntro] = useState(() => {
-    // Only show intro on first visit unless manually triggered
-    try {
-      return !localStorage.getItem('virinchi_intro_seen');
-    } catch (e) {
-      return true;
-    }
-  });
-
-  const handleIntroComplete = () => {
-    setShowIntro(false);
-  };
-
-  const handleReplayIntro = () => {
-    window.scrollTo(0, 0);
-    setShowIntro(true);
-  };
-
   return (
-    <div className="relative min-h-screen bg-[#050508] text-slate-100 flex flex-col justify-between selection:bg-rose-600 selection:text-white">
+    <div className="relative min-h-screen bg-[#040407] text-slate-100 flex flex-col justify-between selection:bg-rose-600 selection:text-white overflow-x-hidden">
       <ScrollToTop />
 
-      {/* Cinematic Intro (10-second frequency-to-logo transformation) */}
-      {showIntro && (
-        <CinematicIntro onComplete={handleIntroComplete} />
-      )}
+      {/* Fresh Clean Cultural Ambient Background with Crimson Music Symbols & Mandalas */}
+      <CulturalMusicBackground />
 
-      {/* Global Navigation Bar */}
-      <Navbar onReplayIntro={handleReplayIntro} />
+      {/* Global Navigation Bar with Hamburger Menu & Brand Identity */}
+      <Navbar />
 
       {/* Main Page Routing */}
-      <main className="flex-grow">
+      <main className="flex-grow relative z-10">
         <Routes>
-          <Route path="/" element={<Home onPlayIntro={handleReplayIntro} />} />
+          <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/team" element={<Team />} />
           <Route path="/team/:memberSlug" element={<MemberProfile />} />
@@ -79,7 +59,7 @@ export default function App() {
           <Route path="/join" element={<Join />} />
           <Route path="/admin" element={<Admin />} />
           {/* Catch-all fallback */}
-          <Route path="*" element={<Home onPlayIntro={handleReplayIntro} />} />
+          <Route path="*" element={<Home />} />
         </Routes>
       </main>
 
