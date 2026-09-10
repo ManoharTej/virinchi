@@ -1,0 +1,43 @@
+{
+  "title": "CULTURAL",
+  "leads": [
+    {
+      "id": "cultural-colead-1",
+      "name": "Shreeshma Netha",
+      "role": "CO-LEAD",
+      "image": "/portfolios/cultural/leads/colead1.png"
+    },
+    {
+      "id": "cultural-lead-1",
+      "name": "Vijitha Bachu",
+      "role": "LEAD",
+      "image": "/portfolios/cultural/leads/lead.png"
+    },
+    {
+      "id": "cultural-colead-2",
+      "name": "N Komal Kanishik",
+      "role": "CO-LEAD",
+      "image": "/portfolios/cultural/leads/colead2.png"
+    }
+  ],
+  "oc": [
+    {
+      "id": "cultural-oc-1",
+      "name": "M Hasini",
+      "role": "ORGANISING COMMITTEE",
+      "image": "/portfolios/cultural/oc/1.png"
+    },
+    {
+      "id": "cultural-oc-2",
+      "name": "G Divyasri",
+      "role": "ORGANISING COMMITTEE",
+      "image": "/portfolios/cultural/oc/2.png"
+    },
+    {
+      "id": "cultural-oc-3",
+      "name": "P Siddharth",
+      "role": "ORGANISING COMMITTEE",
+      "image": "/portfolios/cultural/oc/3.png"
+    }
+  ]
+}

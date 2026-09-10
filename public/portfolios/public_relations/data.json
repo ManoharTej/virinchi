@@ -1,0 +1,25 @@
+{
+  "title": "PUBLIC RELATIONS",
+  "leads": [
+    {
+      "id": "pr-lead-1",
+      "name": "E Praharshith",
+      "role": "LEAD",
+      "image": "/portfolios/public_relations/leads/lead.png"
+    },
+    {
+      "id": "pr-colead-1",
+      "name": "T Veni",
+      "role": "CO-LEAD",
+      "image": "/portfolios/public_relations/leads/colead1.png"
+    }
+  ],
+  "oc": [
+    {
+      "id": "pr-oc-1",
+      "name": "B Hansika",
+      "role": "ORGANISING COMMITTEE",
+      "image": "/portfolios/public_relations/oc/1.png"
+    }
+  ]
+}

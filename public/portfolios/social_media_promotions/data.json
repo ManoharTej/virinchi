@@ -1,0 +1,43 @@
+{
+  "title": "SOCIAL MEDIA PROMOTIONS",
+  "leads": [
+    {
+      "id": "smp-colead-1",
+      "name": "Moses",
+      "role": "CO-LEAD",
+      "image": "/portfolios/social_media_promotions/leads/colead1.png"
+    },
+    {
+      "id": "smp-lead-1",
+      "name": "Saiteja Kathi",
+      "role": "LEAD",
+      "image": "/portfolios/social_media_promotions/leads/lead.png"
+    },
+    {
+      "id": "smp-colead-2",
+      "name": "T Vinay",
+      "role": "CO-LEAD",
+      "image": "/portfolios/social_media_promotions/leads/colead2.png"
+    }
+  ],
+  "oc": [
+    {
+      "id": "smp-oc-1",
+      "name": "Nikhil Chirra",
+      "role": "ORGANISING COMMITTEE",
+      "image": "/portfolios/social_media_promotions/oc/1.png"
+    },
+    {
+      "id": "smp-oc-2",
+      "name": "P Hansh Sagar",
+      "role": "ORGANISING COMMITTEE",
+      "image": "/portfolios/social_media_promotions/oc/2.png"
+    },
+    {
+      "id": "smp-oc-3",
+      "name": "S Deepak",
+      "role": "ORGANISING COMMITTEE",
+      "image": "/portfolios/social_media_promotions/oc/3.png"
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "title": "DESIGNING",
+  "leads": [
+    {
+      "id": "des-colead-1",
+      "name": "K. Abhilash",
+      "role": "CO-LEAD",
+      "image": "/portfolios/designing/leads/colead1.png"
+    },
+    {
+      "id": "des-lead-1",
+      "name": "P Shruthi",
+      "role": "LEAD",
+      "image": "/portfolios/designing/leads/lead.png"
+    },
+    {
+      "id": "des-colead-2",
+      "name": "G. Harshal",
+      "role": "CO-LEAD",
+      "image": "/portfolios/designing/leads/colead2.png"
+    }
+  ],
+  "oc": [
+    {
+      "id": "des-oc-1",
+      "name": "S Bhavana Keerthi",
+      "role": "ORGANISING COMMITTEE",
+      "image": "/portfolios/designing/oc/1.png"
+    },
+    {
+      "id": "des-oc-2",
+      "name": "Dharma Vardhan",
+      "role": "ORGANISING COMMITTEE",
+      "image": "/portfolios/designing/oc/2.png"
+    },
+    {
+      "id": "des-oc-3",
+      "name": "Harshitha Chowdary",
+      "role": "ORGANISING COMMITTEE",
+      "image": "/portfolios/designing/oc/3.png"
+    }
+  ]
+}

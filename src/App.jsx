@@ -2,11 +2,72 @@ import { useEffect, useRef, useState } from 'react';
 import { animate, stagger } from 'animejs';
 import clouds1Img from './assets/clouds_1.jpg';
 import clouds2Img from './assets/clouds_2.jpg';
+import NotebookSection from './components/layout/NotebookSection';
+import ExecutiveBoardSection from './components/layout/ExecutiveBoardSection';
+import EventsSection from './components/layout/EventsSection';
+import GallerySection from './components/layout/GallerySection';
 
 /* ═══════════════════════════════════════════════════════════
    VIRINCHI — Infinite Anime Sky with Foreground
    Features true 3D flapping birds and a hand-coded vector landscape.
 ═══════════════════════════════════════════════════════════ */
+
+// Back half of the 3D Spiral Binding (Hole and inner wire)
+const NotebookBindingBack = ({ binderRef }) => (
+  <div ref={binderRef} style={{
+    position: 'absolute', top: '-20px', left: 0, width: '100%', height: '40px',
+    display: 'flex', justifyContent: 'space-evenly', alignItems: 'center',
+    zIndex: 5, pointerEvents: 'none', padding: '0 5vw'
+  }}>
+    {[...Array(35)].map((_, i) => (
+      <svg key={i} width="30" height="50" viewBox="0 0 30 50" style={{ overflow: 'visible', filter: 'drop-shadow(0px 5px 3px rgba(0,0,0,0.4))' }}>
+        <defs>
+          <radialGradient id={`holeDepth${i}`} cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="#000" />
+            <stop offset="100%" stopColor="#222" />
+          </radialGradient>
+        </defs>
+        {/* Square-ish paper hole */}
+        <rect x="7" y="35" width="16" height="12" rx="3" fill={`url(#holeDepth${i})`} />
+        {/* Hole bevel highlights for paper thickness */}
+        <path d="M 8,47 L 22,47" fill="none" stroke="rgba(255,255,255,0.8)" strokeWidth="1.5" />
+        <path d="M 8,35 L 22,35" fill="none" stroke="rgba(0,0,0,0.5)" strokeWidth="1.5" />
+        {/* Cast shadow of the ring on the paper */}
+        <path d="M 18,10 Q 24,25 18,40" fill="none" stroke="rgba(0,0,0,0.5)" strokeWidth="6" filter="blur(2px)" />
+        {/* Back inside the hole (darker, curving behind the paper) */}
+        <path d="M 18,42 C 24,35 24,25 18,20" fill="none" stroke="#333" strokeWidth="5" />
+      </svg>
+    ))}
+  </div>
+);
+
+// Front half of the 3D Spiral Binding (Outer thick wire)
+const NotebookBindingFront = () => (
+  <div style={{
+    position: 'absolute', top: '-20px', left: 0, width: '100%', height: '40px',
+    display: 'flex', justifyContent: 'space-evenly', alignItems: 'center',
+    zIndex: 15, pointerEvents: 'none', padding: '0 5vw'
+  }}>
+    {[...Array(35)].map((_, i) => (
+      <svg key={i} width="30" height="50" viewBox="0 0 30 50" style={{ overflow: 'visible' }}>
+        <defs>
+          <linearGradient id={`thickMetal${i}`} x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#555" />
+            <stop offset="15%" stopColor="#ccc" />
+            <stop offset="30%" stopColor="#fff" />
+            <stop offset="60%" stopColor="#999" />
+            <stop offset="80%" stopColor="#ddd" />
+            <stop offset="100%" stopColor="#333" />
+          </linearGradient>
+        </defs>
+        {/* Front thick 3D metallic ring */}
+        <path d="M 12,45 C 0,30 0,10 18,2" fill="none" stroke={`url(#thickMetal${i})`} strokeWidth="7" strokeLinecap="round" />
+        {/* Strong specular highlight to make the metal pop in 3D */}
+        <path d="M 11,43 C 1,30 1,12 16,4" fill="none" stroke="rgba(255,255,255,0.9)" strokeWidth="1.5" strokeLinecap="round" />
+      </svg>
+    ))}
+  </div>
+);
 
 // A beautiful provided landscape image at the bottom of the page
 const AnimeLandscape = ({ handRef }) => {
@@ -136,8 +197,14 @@ const KiteSystem = ({ handRef }) => {
       
       const scrollProgress = Math.min(sy / vh, 1); // 0 to 1
       
-      // Top: Starts at 5vh, ends at 12vh (moved 3 points higher)
-      const currentTop = 5 + (7 * scrollProgress); 
+      // Top: Starts at 5vh, ends at 10vh (stopping much higher in the sky)
+      let currentTop = 5 + (5 * scrollProgress); 
+      
+      // If we scroll past Tab 2 (sy > vh), make the kite naturally scroll up with the page
+      if (sy > vh) {
+        const excessVh = ((sy - vh) / vh) * 100;
+        currentTop -= excessVh;
+      }
       
       // Left: Starts at 45vw, ends at 33vw (the empty spot in the clouds)
       const currentLeft = 45 - (12 * scrollProgress);
@@ -158,7 +225,9 @@ const KiteSystem = ({ handRef }) => {
         const hY = handRect.top + handRect.height * 0.18;
 
         const kX = kiteRect.left + kiteRect.width * 0.5;
-        const kY = kiteRect.top + kiteRect.height;
+        // The kite diamond is in the top 120 units of the 250 unit viewBox. 
+        // 60/250 = 0.24 is the exact center of the kite diamond.
+        const kY = kiteRect.top + kiteRect.height * 0.24;
 
         const midX = (hX + kX) / 2;
         const midY = Math.max(hY, kY) + 50; 
@@ -179,11 +248,12 @@ const KiteSystem = ({ handRef }) => {
 
   return (
     <>
-      <svg style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', pointerEvents: 'none', zIndex: 55 }}>
+      <svg style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', pointerEvents: 'none', zIndex: 105 }}>
         <path ref={stringRef} fill="transparent" stroke="rgba(255,255,255,0.9)" strokeWidth="2.5" />
       </svg>
       
-      <div ref={kiteContainerRef} style={{ position: 'fixed', left: '45%', top: '5vh', zIndex: 56, pointerEvents: 'none' }}>
+      
+      <div ref={kiteContainerRef} style={{ position: 'fixed', left: '45%', top: '5vh', zIndex: 106, pointerEvents: 'none' }}>
          <div ref={kiteSwayRef}>
            <svg width="150" height="350" viewBox="0 0 100 250" style={{ overflow: 'visible' }}>
              {/* Kite Body - Striped/Colorful */}
@@ -193,9 +263,9 @@ const KiteSystem = ({ handRef }) => {
              <polygon points="50,120 0,50 50,50" fill="#ff0055" />
              <polygon points="0,50 50,0 50,50" fill="#00d26a" />
              {/* Ribbons/Tail */}
-             <path d="M 50 120 Q 20 160 50 200 T 50 280 T 50 360" fill="transparent" stroke="#ffb800" strokeWidth="6" strokeLinecap="round" />
-             <path d="M 50 120 Q 80 170 50 220 T 50 320 T 50 420" fill="transparent" stroke="#ff0055" strokeWidth="6" strokeLinecap="round" />
-             <path d="M 50 120 Q 40 180 50 240 T 50 340 T 50 440" fill="transparent" stroke="#00e5ff" strokeWidth="6" strokeLinecap="round" />
+             <path d="M 50 120 Q 20 160 50 200 T 50 280 T 50 360" fill="transparent" stroke="#ffb800" strokeWidth="3" strokeLinecap="round" />
+             <path d="M 50 120 Q 80 170 50 220 T 50 320 T 50 420" fill="transparent" stroke="#ff0055" strokeWidth="3" strokeLinecap="round" />
+             <path d="M 50 120 Q 40 180 50 240 T 50 340 T 50 440" fill="transparent" stroke="#00e5ff" strokeWidth="3" strokeLinecap="round" />
            </svg>
          </div>
       </div>
@@ -282,34 +352,30 @@ const BackgroundKites = () => {
   const kitesRef = useRef(null);
 
   useEffect(() => {
-    // Large swooping movement across the screen
+    // Hovering/Bobbing movement for Kites
     animate('.bg-kite', {
-      translateX: (el) => [0, window.innerWidth * 0.8],
-      translateY: (el) => ['-50px', '50px'],
-      rotateZ: (el) => [parseFloat(el.dataset.r) - 10, parseFloat(el.dataset.r) + 10],
-      duration: (el, i) => 25000 + i * 2000,
+      translateX: ['-15px', '15px'],
+      translateY: ['-25px', '25px'],
+      rotateZ: (el) => [parseFloat(el.dataset.r) - 5, parseFloat(el.dataset.r) + 5],
+      duration: (el, i) => 3000 + i * 800,
       direction: 'alternate',
       loop: true,
       easing: 'easeInOutSine',
-      delay: stagger(1000)
+      delay: stagger(300)
     });
   }, []);
 
   const kiteData = [
-    { top: '10%', left: '10%', s: 0.25, r: 15 },
-    { top: '40%', left: '20%', s: 0.2, r: -10 },
-    { top: '20%', left: '40%', s: 0.22, r: 25 },
-    { top: '60%', left: '15%', s: 0.18, r: -5 },
-    { top: '25%', left: '55%', s: 0.24, r: 10 },
-    { top: '80%', left: '5%', s: 0.2, r: -15 },
-    { top: '15%', left: '75%', s: 0.25, r: 5 },
-    { top: '50%', left: '80%', s: 0.21, r: 20 },
-    { top: '75%', left: '90%', s: 0.19, r: -8 },
-    { top: '5%', left: '95%', s: 0.23, r: 12 },
+    // Left Side Kites
+    { top: '20%', left: '10%', s: 0.25, r: 15 },
+    { top: '65%', left: '15%', s: 0.2, r: -10 },
+    // Right Side Kites
+    { top: '15%', left: '80%', s: 0.24, r: -5 },
+    { top: '75%', left: '85%', s: 0.25, r: 10 }
   ];
 
   return (
-    <div ref={kitesRef} style={{ position: 'absolute', top: 0, left: 0, width: '100vw', height: '100vh', pointerEvents: 'none', zIndex: 15 }}>
+    <div ref={kitesRef} style={{ position: 'absolute', top: 0, left: 0, width: '100vw', height: '100vh', pointerEvents: 'none', zIndex: 0 }}>
       {kiteData.map((k, i) => (
         <div 
           key={i} 
@@ -340,6 +406,7 @@ export default function App() {
   const layer3Ref = useRef(null);
   const layer4Ref = useRef(null);
   const handRef = useRef(null); // Reference for the hero's hand
+  const binderRef = useRef(null); // Reference for the spiral notebook binding
 
   useEffect(() => {
     // Continuous Cloud Movement
@@ -351,10 +418,13 @@ export default function App() {
     // Parallax Depth on Scroll
     const handleScroll = () => {
       const sy = window.scrollY;
-      if (layer1Ref.current) layer1Ref.current.style.transform = `translateY(\${sy * 0.1}px)`;
-      if (layer2Ref.current) layer2Ref.current.style.transform = `translateY(\${sy * 0.3}px)`;
-      if (layer3Ref.current) layer3Ref.current.style.transform = `translateY(\${sy * 0.5}px)`;
-      if (layer4Ref.current) layer4Ref.current.style.transform = `translateY(\${sy * 0.7}px)`;
+      const vh = window.innerHeight;
+      if (layer1Ref.current) layer1Ref.current.style.transform = `translateY(${sy * 0.1}px)`;
+      if (layer2Ref.current) layer2Ref.current.style.transform = `translateY(${sy * 0.3}px)`;
+      if (layer3Ref.current) layer3Ref.current.style.transform = `translateY(${sy * 0.5}px)`;
+      if (layer4Ref.current) {
+        layer4Ref.current.style.transform = `translateY(${sy * -0.1}px)`;
+      }
     };
     
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -374,7 +444,7 @@ export default function App() {
       <div 
         ref={layer1Ref}
         style={{
-          position: 'absolute', top: '10%', left: '-10%', width: '120%', height: '100vh',
+          position: 'absolute', top: '20vh', left: '-10%', width: '120%', height: '100vh',
           background: `url(${clouds2Img}) repeat-x center/auto 100%`,
           mixBlendMode: 'screen', opacity: 0.6, pointerEvents: 'none', willChange: 'background-position'
         }} 
@@ -382,7 +452,7 @@ export default function App() {
       <div 
         ref={layer2Ref}
         style={{
-          position: 'absolute', top: '30%', right: '-5%', width: '150%', height: '120vh',
+          position: 'absolute', top: '77vh', right: '-5%', width: '150%', height: '85vh',
           background: `url(${clouds1Img}) repeat-x center/auto 100%`,
           mixBlendMode: 'screen', opacity: 0.8, pointerEvents: 'none', willChange: 'background-position'
         }} 
@@ -390,7 +460,7 @@ export default function App() {
       <div 
         ref={layer3Ref}
         style={{
-          position: 'absolute', top: '90%', left: '-5%', width: '200%', height: '100vh',
+          position: 'absolute', top: '160vh', left: '-5%', width: '200%', height: '100vh',
           background: `url(${clouds2Img}) repeat-x center/auto 100%`,
           mixBlendMode: 'screen', opacity: 0.9, pointerEvents: 'none', willChange: 'background-position'
         }} 
@@ -398,30 +468,23 @@ export default function App() {
       <div 
         ref={layer4Ref}
         style={{
-          position: 'absolute', top: '120%', left: '-20%', width: '200%', height: '150vh',
+          position: 'absolute', top: '222vh', left: '-20%', width: '200%', height: '105vh',
           background: `url(${clouds1Img}) repeat-x center/auto 100%`,
           mixBlendMode: 'screen', opacity: 1, pointerEvents: 'none', willChange: 'background-position'
         }} 
       />
 
-      {/* BIRDS */}
-      <AnimatedFlock top="15%" left="0" scale={0.6} delay={1000} duration={35000} count={6} />
-      <AnimatedFlock top="110%" left="0" scale={0.8} delay={0} duration={30000} count={8} />
-
-      {/* BACKGROUND KITES */}
-      <BackgroundKites />
 
       {/* KITE SYSTEM (Parallax Kite and String) */}
       <KiteSystem handRef={handRef} />
-
-      {/* NEW FOREGROUND MOUNTAINS & TREES */}
-      <AnimeLandscape handRef={handRef} />
-
 
       {/* --- SCROLLY-TELLING UI OVERLAYS --- */}
 
       {/* TAB 1: Hero Section (100vh) */}
       <section style={{ height: '100vh', display: 'flex', width: '100%', position: 'relative', zIndex: 100 }}>
+        
+        {/* 4 Background Kites strictly in Tab 1 */}
+        <BackgroundKites />
         
         {/* HEADER MENU */}
         <header style={{ position: 'absolute', top: 0, left: 0, width: '100%', padding: '20px 40px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', zIndex: 120 }}>
@@ -537,6 +600,10 @@ export default function App() {
       {/* TAB 2: About Virinchi (100vh) */}
       <section style={{ height: '100vh', display: 'flex', width: '100%', padding: '50px', position: 'relative', zIndex: 100 }}>
         
+        {/* BACKGROUND KITES & LANDSCAPE STRICTLY IN TAB 2 */}
+        <AnimeLandscape handRef={handRef} />
+        
+
         {/* Content Aligned to the Right (45%) */}
         <div style={{ 
           width: '45%', 
@@ -544,7 +611,9 @@ export default function App() {
           marginRight: '5%',
           display: 'flex',
           flexDirection: 'column',
-          justifyContent: 'center'
+          justifyContent: 'center',
+          position: 'relative',
+          zIndex: 20
         }}>
           {/* A dark glassmorphism container for the About section to ensure readability against the landscape */}
           <div style={{ 
@@ -569,9 +638,38 @@ export default function App() {
             </p>
           </div>
         </div>
+
+        {/* SMALL SIMPLE BOTTOM EDGE FADE TO TAB 3 COLOR */}
+        <div 
+          style={{
+            position: 'absolute',
+            bottom: 0,
+            left: 0,
+            width: '100%',
+            height: '20vh',
+            background: 'linear-gradient(to bottom, transparent, #0d0614)',
+            pointerEvents: 'none',
+            zIndex: 90
+        }} 
+      />
       </section>
+
+      {/* TAB 3 — clip-path allows left/right overflow freely, top overflow for spirals, and bottom overflow for glow spilling onto Tab 4 */}
+      <section style={{ position: 'relative', width: '100%', background: '#0d0614', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 -10px 30px rgba(0,0,0,0.1)', clipPath: 'inset(-200px -100vw -200px -100vw)', zIndex: 110 }}>
+        <NotebookSection />
+        <NotebookBindingBack binderRef={binderRef} />
+        <NotebookBindingFront />
+      </section>
+
+      {/* TAB 4: Executive Board (100vh) */}
+      <ExecutiveBoardSection />
+
+      {/* TAB 5: Events / Culture (Horizontal Scroll) */}
+      <EventsSection />
+
+      {/* TAB 6: Gallery / Memories (Parallax 3D) */}
+      <GallerySection />
 
     </div>
   );
 }
-

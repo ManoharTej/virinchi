@@ -1,0 +1,43 @@
+{
+  "title": "PRODUCTION",
+  "leads": [
+    {
+      "id": "prod-colead-1",
+      "name": "M Aravind",
+      "role": "CO-LEAD",
+      "image": "/portfolios/production/leads/colead1.png"
+    },
+    {
+      "id": "prod-lead-1",
+      "name": "A Jayanth",
+      "role": "LEAD",
+      "image": "/portfolios/production/leads/lead.png"
+    },
+    {
+      "id": "prod-colead-2",
+      "name": "Bharath Kumar",
+      "role": "CO-LEAD",
+      "image": "/portfolios/production/leads/colead2.png"
+    }
+  ],
+  "oc": [
+    {
+      "id": "prod-oc-1",
+      "name": "R Manikesh",
+      "role": "ORGANISING COMMITTEE",
+      "image": "/portfolios/production/oc/1.png"
+    },
+    {
+      "id": "prod-oc-2",
+      "name": "G Harshith",
+      "role": "ORGANISING COMMITTEE",
+      "image": "/portfolios/production/oc/2.png"
+    },
+    {
+      "id": "prod-oc-3",
+      "name": "V Manasa",
+      "role": "ORGANISING COMMITTEE",
+      "image": "/portfolios/production/oc/3.png"
+    }
+  ]
+}

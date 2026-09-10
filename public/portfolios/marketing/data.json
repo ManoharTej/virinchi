@@ -1,0 +1,37 @@
+{
+  "title": "MARKETING",
+  "leads": [
+    {
+      "id": "mkt-lead-1",
+      "name": "Satvika Shetty",
+      "role": "LEAD",
+      "image": "/portfolios/marketing/leads/lead.png"
+    },
+    {
+      "id": "mkt-colead-1",
+      "name": "Sriteja Goudi",
+      "role": "CO-LEAD",
+      "image": "/portfolios/marketing/leads/colead1.png"
+    }
+  ],
+  "oc": [
+    {
+      "id": "mkt-oc-1",
+      "name": "Kruthi kuntla",
+      "role": "ORGANISING COMMITTEE",
+      "image": "/portfolios/marketing/oc/1.png"
+    },
+    {
+      "id": "mkt-oc-2",
+      "name": "N Yasaswini",
+      "role": "ORGANISING COMMITTEE",
+      "image": "/portfolios/marketing/oc/2.png"
+    },
+    {
+      "id": "mkt-oc-3",
+      "name": "Rohith",
+      "role": "ORGANISING COMMITTEE",
+      "image": "/portfolios/marketing/oc/3.png"
+    }
+  ]
+}

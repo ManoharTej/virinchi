@@ -1,0 +1,31 @@
+{
+  "title": "HOSPITALITY",
+  "leads": [
+    {
+      "id": "hosp-lead-1",
+      "name": "K Suraj Rao",
+      "role": "LEAD",
+      "image": "/portfolios/hospitality/leads/lead.png"
+    },
+    {
+      "id": "hosp-colead-1",
+      "name": "G Varun Kumar",
+      "role": "CO-LEAD",
+      "image": "/portfolios/hospitality/leads/colead1.png"
+    }
+  ],
+  "oc": [
+    {
+      "id": "hosp-oc-1",
+      "name": "K Vasavi",
+      "role": "ORGANISING COMMITTEE",
+      "image": "/portfolios/hospitality/oc/1.png"
+    },
+    {
+      "id": "hosp-oc-2",
+      "name": "Ch. Akshaya Reddy",
+      "role": "ORGANISING COMMITTEE",
+      "image": "/portfolios/hospitality/oc/2.png"
+    }
+  ]
+}
