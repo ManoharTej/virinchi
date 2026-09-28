@@ -79,9 +79,25 @@ export default function NotebookSection() {
           box-shadow: inset -10px 0 20px rgba(0,0,0,0.05), 5px 0 15px rgba(0,0,0,0.1);
         }
         @media (max-width: 768px) {
-          .notebook-container { flex-direction: column !important; }
-          .id-card-section { width: 100% !important; height: 30% !important; margin-bottom: 20px; }
-          .book-section { width: 100% !important; height: 70% !important; }
+          .notebook-container { 
+            flex-direction: column !important; 
+            justify-content: flex-start !important; 
+            padding-top: 50px !important;
+          }
+          .id-card-section { 
+            position: relative !important;
+            width: 100% !important; 
+            height: 250px !important;
+            transform: scale(0.6); 
+            transform-origin: top center;
+          }
+          .book-section { 
+            width: 90vw !important; 
+            height: 120vw !important; /* Keep proportion */
+            margin: 0 auto;
+            transform: scale(0.7); 
+            transform-origin: top center; 
+          }
         }
       `}</style>
 

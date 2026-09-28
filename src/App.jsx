@@ -136,7 +136,7 @@ const AnimeLandscape = ({ handRef }) => {
       />
 
       {/* Hero Characters on the left */}
-      <div style={{ position: 'absolute', left: 0, bottom: 0, width: '45vw', maxWidth: '700px', zIndex: 60 }}>
+      <div className="hero-chars" style={{ position: 'absolute', left: 0, bottom: 0, width: '45vw', maxWidth: '700px', zIndex: 60 }}>
         {/* Animated Hand (Placed BEHIND people) */}
         <img 
           ref={handRef}

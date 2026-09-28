@@ -117,3 +117,36 @@ h1, h2, h3, h4, h5, h6 {
 .eq-bar {
   animation: eqBounce 1s ease-in-out infinite;
 }
+
+/* ==========================================================================
+   MOBILE RESPONSIVENESS OVERRIDES
+   ========================================================================== */
+@media (max-width: 768px) {
+  /* Hero Section Mobile */
+  .hero-chars {
+    width: 100vw !important;
+    left: 0 !important;
+  }
+  
+  /* Typography Scaling */
+  .h1-title { font-size: clamp(2.5rem, 10vw, 4rem) !important; }
+  h2 { font-size: clamp(2rem, 8vw, 3rem) !important; }
+  
+  /* Dome Gallery Mobile */
+  .gallery-dome-container {
+    perspective: 1500px !important;
+  }
+  .gallery-dome-item {
+    width: 200px !important;
+    height: 150px !important;
+  }
+
+  /* For complex landscape tabs, use zoom to shrink the exact desktop layout down 
+     so it fits on a portrait screen without breaking GSAP math */
+  .events-section-wrapper,
+  .wings-section-wrapper,
+  .contact-section,
+  .social-hub-wrapper {
+    zoom: 0.5;
+  }
+}
