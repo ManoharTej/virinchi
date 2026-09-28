@@ -1,0 +1,100 @@
+/* ═══════════════════════════════════════════════════════════
+   FINAL TAB - MINIMALIST CONTACT & FOOTER
+═══════════════════════════════════════════════════════════ */
+
+.contact-section-minimal {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  /* Matching Tab 4 background */
+  background: linear-gradient(to bottom, #0d0614 0%, #1a0815 100%);
+  font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+  color: #fff;
+  z-index: 100;
+}
+
+.contact-content-minimal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  z-index: 10;
+}
+
+.minimal-logo {
+  height: 220px;
+  margin-bottom: 15px;
+  filter: drop-shadow(0 0 30px rgba(255, 42, 133, 0.4));
+  opacity: 0.95;
+}
+
+.minimal-title {
+  font-size: 3.2rem;
+  font-family: 'Unbounded', sans-serif;
+  font-weight: 800;
+  letter-spacing: 6px;
+  margin: 0 0 10px 0;
+  text-shadow: 0 4px 20px rgba(0,0,0,0.4);
+}
+
+.minimal-subtitle {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 50px;
+}
+
+.minimal-socials {
+  display: flex;
+  gap: 30px;
+}
+
+.minimal-social-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+  padding: 12px 30px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 40px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.minimal-social-link:hover {
+  background: rgba(255, 255, 255, 1);
+  color: #000;
+  border-color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+.minimal-footer-bottom {
+  position: absolute;
+  bottom: 40px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+  z-index: 10;
+}
+
+.minimal-footer-bottom p {
+  margin: 5px 0;
+}
+
+.minimal-footer-bottom .copyright {
+  opacity: 0.6;
+}

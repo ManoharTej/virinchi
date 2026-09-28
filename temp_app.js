@@ -2,80 +2,11 @@ import { useEffect, useRef, useState } from 'react';
 import { animate, stagger } from 'animejs';
 import clouds1Img from './assets/clouds_1.jpg';
 import clouds2Img from './assets/clouds_2.jpg';
-import NotebookSection from './components/layout/NotebookSection';
-import ExecutiveBoardSection, { AnimatedMusicalBackground } from './components/layout/ExecutiveBoardSection';
-import EventsSection from './components/layout/EventsSection';
-import DomeGallery from './components/layout/DomeGallery';
-import GlowingLight from './components/layout/GlowingLight';
-import WingsSection from './components/layout/WingsSection';
-import SocialHub from './components/layout/SocialHub';
-import ContactSection from './components/layout/ContactSection';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
 
 /* ═══════════════════════════════════════════════════════════
    VIRINCHI — Infinite Anime Sky with Foreground
    Features true 3D flapping birds and a hand-coded vector landscape.
 ═══════════════════════════════════════════════════════════ */
-
-// Back half of the 3D Spiral Binding (Hole and inner wire)
-const NotebookBindingBack = ({ binderRef }) => (
-  <div ref={binderRef} style={{
-    position: 'absolute', top: '-20px', left: 0, width: '100%', height: '40px',
-    display: 'flex', justifyContent: 'space-evenly', alignItems: 'center',
-    zIndex: 5, pointerEvents: 'none', padding: '0 5vw'
-  }}>
-    {[...Array(35)].map((_, i) => (
-      <svg key={i} width="30" height="50" viewBox="0 0 30 50" style={{ overflow: 'visible', filter: 'drop-shadow(0px 5px 3px rgba(0,0,0,0.4))' }}>
-        <defs>
-          <radialGradient id={`holeDepth${i}`} cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="#000" />
-            <stop offset="100%" stopColor="#222" />
-          </radialGradient>
-        </defs>
-        {/* Square-ish paper hole */}
-        <rect x="7" y="35" width="16" height="12" rx="3" fill={`url(#holeDepth${i})`} />
-        {/* Hole bevel highlights for paper thickness */}
-        <path d="M 8,47 L 22,47" fill="none" stroke="rgba(255,255,255,0.8)" strokeWidth="1.5" />
-        <path d="M 8,35 L 22,35" fill="none" stroke="rgba(0,0,0,0.5)" strokeWidth="1.5" />
-        {/* Cast shadow of the ring on the paper */}
-        <path d="M 18,10 Q 24,25 18,40" fill="none" stroke="rgba(0,0,0,0.5)" strokeWidth="6" filter="blur(2px)" />
-        {/* Back inside the hole (darker, curving behind the paper) */}
-        <path d="M 18,42 C 24,35 24,25 18,20" fill="none" stroke="#333" strokeWidth="5" />
-      </svg>
-    ))}
-  </div>
-);
-
-// Front half of the 3D Spiral Binding (Outer thick wire)
-const NotebookBindingFront = () => (
-  <div style={{
-    position: 'absolute', top: '-20px', left: 0, width: '100%', height: '40px',
-    display: 'flex', justifyContent: 'space-evenly', alignItems: 'center',
-    zIndex: 15, pointerEvents: 'none', padding: '0 5vw'
-  }}>
-    {[...Array(35)].map((_, i) => (
-      <svg key={i} width="30" height="50" viewBox="0 0 30 50" style={{ overflow: 'visible' }}>
-        <defs>
-          <linearGradient id={`thickMetal${i}`} x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#555" />
-            <stop offset="15%" stopColor="#ccc" />
-            <stop offset="30%" stopColor="#fff" />
-            <stop offset="60%" stopColor="#999" />
-            <stop offset="80%" stopColor="#ddd" />
-            <stop offset="100%" stopColor="#333" />
-          </linearGradient>
-        </defs>
-        {/* Front thick 3D metallic ring */}
-        <path d="M 12,45 C 0,30 0,10 18,2" fill="none" stroke={`url(#thickMetal${i})`} strokeWidth="7" strokeLinecap="round" />
-        {/* Strong specular highlight to make the metal pop in 3D */}
-        <path d="M 11,43 C 1,30 1,12 16,4" fill="none" stroke="rgba(255,255,255,0.9)" strokeWidth="1.5" strokeLinecap="round" />
-      </svg>
-    ))}
-  </div>
-);
 
 // A beautiful provided landscape image at the bottom of the page
 const AnimeLandscape = ({ handRef }) => {
@@ -83,12 +14,12 @@ const AnimeLandscape = ({ handRef }) => {
     // Start Puppet Hand Animation once the hand element mounts
     if (handRef.current) {
       animate(handRef.current, {
-        translateY: [-5, 5],
-        rotate: [-1, 1],
+        rotateZ: [-5, 8],
+        translateY: [-2, 2],
         direction: 'alternate',
         loop: true,
         easing: 'easeInOutSine',
-        duration: 1500
+        duration: 1200
       });
     }
   }, [handRef]);
@@ -144,8 +75,8 @@ const AnimeLandscape = ({ handRef }) => {
           alt="Hand"
           style={{ 
             position: 'absolute', 
-            top: '2.4%', // <-- Tweak this value to move it up or down (higher % moves it down)
-            left: '50%', // <-- Tweak this value to move it left or right
+            top: '1.8%',
+            left: '50%',
             width: '12%',
             height: 'auto',
             transformOrigin: 'bottom left',
@@ -203,49 +134,35 @@ const KiteSystem = ({ handRef }) => {
       const sy = window.scrollY;
       const vh = window.innerHeight;
       
-      // OPTIMIZATION: If we are scrolled past Tab 2, DO NOT read/write DOM to prevent layout thrashing for other Tabs
-      if (sy > vh * 2.5) {
-        requestAnimationFrame(updateKite);
-        return;
-      }
-
-      // 1. READ DOM FIRST
-      let hX = 0, hY = 0, kX = 0, kY = 0;
-      if (handRef.current && kiteContainerRef.current) {
-        const handRect = handRef.current.getBoundingClientRect();
-        const kiteRect = kiteContainerRef.current.getBoundingClientRect();
-        
-        // Pixel perfect attachment to hand grip
-        hX = handRect.left + handRect.width * 0.85;
-        hY = handRect.top + handRect.height * 0.18;
-
-        // Pixel perfect attachment to kite center
-        kX = kiteRect.left + kiteRect.width * 0.5;
-        kY = kiteRect.top + kiteRect.height * 0.24;
-      }
-
-      // 2. CALCULATE
-      // (sy and vh already read above for optimization)
+      const scrollProgress = Math.min(sy / vh, 1); // 0 to 1
       
-      const scrollProgress = Math.min(sy / vh, 1); 
+      // Top: Starts at 5vh, ends at 12vh (moved 3 points higher)
+      const currentTop = 5 + (7 * scrollProgress); 
       
-      let currentTopVh = 5 + (5 * scrollProgress); 
-      if (sy > vh) {
-        currentTopVh -= ((sy - vh) / vh) * 100;
-      }
-      const currentLeftVw = 45 - (12 * scrollProgress);
+      // Left: Starts at 45vw, ends at 33vw (the empty spot in the clouds)
+      const currentLeft = 45 - (12 * scrollProgress);
 
-      // 3. WRITE TO DOM (Batching writes at the end)
       if (kiteContainerRef.current) {
-        kiteContainerRef.current.style.top = `${currentTopVh}vh`;
-        kiteContainerRef.current.style.left = `${currentLeftVw}vw`;
+        kiteContainerRef.current.style.top = `${currentTop}vh`;
+        kiteContainerRef.current.style.left = `${currentLeft}vw`;
         kiteContainerRef.current.style.transform = `translate(${mouseX}px, ${mouseY}px) scale(0.8)`;
       }
 
-      // Draw dynamic string perfectly without forcing layout recalculations
-      if (stringRef.current) {
+      // Draw dynamic string perfectly connecting hand to kite
+      if (handRef.current && kiteContainerRef.current && stringRef.current) {
+        const handRect = handRef.current.getBoundingClientRect();
+        const kiteRect = kiteContainerRef.current.getBoundingClientRect();
+        
+        // Attach exact at the fingers/grip area
+        const hX = handRect.left + handRect.width * 0.85;
+        const hY = handRect.top + handRect.height * 0.18;
+
+        const kX = kiteRect.left + kiteRect.width * 0.5;
+        const kY = kiteRect.top + kiteRect.height;
+
         const midX = (hX + kX) / 2;
         const midY = Math.max(hY, kY) + 50; 
+
         stringRef.current.setAttribute('d', `M ${hX} ${hY} Q ${midX} ${midY} ${kX} ${kY}`);
       }
       
@@ -262,12 +179,11 @@ const KiteSystem = ({ handRef }) => {
 
   return (
     <>
-      <svg style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', pointerEvents: 'none', zIndex: 105 }}>
+      <svg style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', pointerEvents: 'none', zIndex: 55 }}>
         <path ref={stringRef} fill="transparent" stroke="rgba(255,255,255,0.9)" strokeWidth="2.5" />
       </svg>
       
-      
-      <div ref={kiteContainerRef} style={{ position: 'fixed', left: '45%', top: '5vh', zIndex: 106, pointerEvents: 'none' }}>
+      <div ref={kiteContainerRef} style={{ position: 'fixed', left: '45%', top: '5vh', zIndex: 56, pointerEvents: 'none' }}>
          <div ref={kiteSwayRef}>
            <svg width="150" height="350" viewBox="0 0 100 250" style={{ overflow: 'visible' }}>
              {/* Kite Body - Striped/Colorful */}
@@ -277,9 +193,9 @@ const KiteSystem = ({ handRef }) => {
              <polygon points="50,120 0,50 50,50" fill="#ff0055" />
              <polygon points="0,50 50,0 50,50" fill="#00d26a" />
              {/* Ribbons/Tail */}
-             <path d="M 50 120 Q 20 160 50 200 T 50 280 T 50 360" fill="transparent" stroke="#ffb800" strokeWidth="3" strokeLinecap="round" />
-             <path d="M 50 120 Q 80 170 50 220 T 50 320 T 50 420" fill="transparent" stroke="#ff0055" strokeWidth="3" strokeLinecap="round" />
-             <path d="M 50 120 Q 40 180 50 240 T 50 340 T 50 440" fill="transparent" stroke="#00e5ff" strokeWidth="3" strokeLinecap="round" />
+             <path d="M 50 120 Q 20 160 50 200 T 50 280 T 50 360" fill="transparent" stroke="#ffb800" strokeWidth="6" strokeLinecap="round" />
+             <path d="M 50 120 Q 80 170 50 220 T 50 320 T 50 420" fill="transparent" stroke="#ff0055" strokeWidth="6" strokeLinecap="round" />
+             <path d="M 50 120 Q 40 180 50 240 T 50 340 T 50 440" fill="transparent" stroke="#00e5ff" strokeWidth="6" strokeLinecap="round" />
            </svg>
          </div>
       </div>
@@ -366,30 +282,34 @@ const BackgroundKites = () => {
   const kitesRef = useRef(null);
 
   useEffect(() => {
-    // Hovering/Bobbing movement for Kites
+    // Large swooping movement across the screen
     animate('.bg-kite', {
-      translateX: ['-15px', '15px'],
-      translateY: ['-25px', '25px'],
-      rotateZ: (el) => [parseFloat(el.dataset.r) - 5, parseFloat(el.dataset.r) + 5],
-      duration: (el, i) => 3000 + i * 800,
+      translateX: (el) => [0, window.innerWidth * 0.8],
+      translateY: (el) => ['-50px', '50px'],
+      rotateZ: (el) => [parseFloat(el.dataset.r) - 10, parseFloat(el.dataset.r) + 10],
+      duration: (el, i) => 25000 + i * 2000,
       direction: 'alternate',
       loop: true,
       easing: 'easeInOutSine',
-      delay: stagger(300)
+      delay: stagger(1000)
     });
   }, []);
 
   const kiteData = [
-    // Left Side Kites
-    { top: '20%', left: '10%', s: 0.25, r: 15 },
-    { top: '65%', left: '15%', s: 0.2, r: -10 },
-    // Right Side Kites
-    { top: '15%', left: '80%', s: 0.24, r: -5 },
-    { top: '75%', left: '85%', s: 0.25, r: 10 }
+    { top: '10%', left: '10%', s: 0.25, r: 15 },
+    { top: '40%', left: '20%', s: 0.2, r: -10 },
+    { top: '20%', left: '40%', s: 0.22, r: 25 },
+    { top: '60%', left: '15%', s: 0.18, r: -5 },
+    { top: '25%', left: '55%', s: 0.24, r: 10 },
+    { top: '80%', left: '5%', s: 0.2, r: -15 },
+    { top: '15%', left: '75%', s: 0.25, r: 5 },
+    { top: '50%', left: '80%', s: 0.21, r: 20 },
+    { top: '75%', left: '90%', s: 0.19, r: -8 },
+    { top: '5%', left: '95%', s: 0.23, r: 12 },
   ];
 
   return (
-    <div ref={kitesRef} style={{ position: 'absolute', top: 0, left: 0, width: '100vw', height: '100vh', pointerEvents: 'none', zIndex: 0 }}>
+    <div ref={kitesRef} style={{ position: 'absolute', top: 0, left: 0, width: '100vw', height: '100vh', pointerEvents: 'none', zIndex: 15 }}>
       {kiteData.map((k, i) => (
         <div 
           key={i} 
@@ -414,142 +334,12 @@ const BackgroundKites = () => {
   );
 };
 
-/* ═══════════════════════════════════════════════════════════
-   TAB 7 SECTION: Handles Scroll Lock & Sequential Animation
-═══════════════════════════════════════════════════════════ */
-const Tab7Section = () => {
-  const [animState, setAnimState] = useState(0); // 0=init, 1=logo, 2=fibers, 3=done
-  const sectionRef = useRef(null);
-  const fibersRef = useRef(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      const entry = entries[0];
-      // Only trigger if we intersect at least 50% and haven't triggered yet
-      if (entry.isIntersecting && animState === 0) {
-        
-        // 1. Lock the scroll so user is forced to watch the animation
-        document.body.style.overflow = 'hidden';
-        document.documentElement.style.overflow = 'hidden';
-
-        // Snap precisely to the section to ensure it's perfectly framed
-        sectionRef.current.scrollIntoView({ behavior: 'smooth' });
-        
-        // 2. Fade in the logo immediately
-        setAnimState(1);
-
-        // 3. After 1 second, start fading in the fibers
-        setTimeout(() => {
-          setAnimState(2);
-
-          // 4. Wait 1.5s for fibers to fade, PLUS an additional 2s (total 3500ms) before unlocking scroll
-          setTimeout(() => {
-            setAnimState(3);
-            document.body.style.overflow = 'auto';
-            document.documentElement.style.overflow = 'auto';
-          }, 3500);
-
-        }, 1000);
-      }
-    }, { threshold: 0.6 });
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => {
-      observer.disconnect();
-      // Failsafe unlock if unmounted
-      document.body.style.overflow = 'auto';
-      document.documentElement.style.overflow = 'auto';
-    };
-  }, [animState]);
-
-  // ScrollTrigger for fading out fibers when scrolling towards Tab 8
-  useEffect(() => {
-    let ctx = gsap.context(() => {
-      gsap.fromTo(fibersRef.current,
-        { opacity: 1 },
-        {
-          opacity: 0,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: '60% top',   // Start fading when 60% of Tab 7 has scrolled past the top
-            end: 'bottom top',  // Finish fading when the bottom of Tab 7 hits the top
-            scrub: true
-          }
-        }
-      );
-    });
-    return () => ctx.revert();
-  }, []);
-
-  return (
-    <section ref={sectionRef} id="tab8" style={{ width: '100vw', height: '100vh', position: 'relative', background: '#0d0614', overflow: 'hidden' }}>
-      
-      {/* Background Ambience: Musical Notes & Glow instead of GhostFibers */}
-      <div ref={fibersRef} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', pointerEvents: 'none' }}>
-        <GlowingLight style={{ top: '50%', transform: 'translateY(-50%)', opacity: 0.6 }} />
-        <AnimatedMusicalBackground />
-      </div>
-      
-      {/* Centered White Virinchi Logo (Enlarged Ambient Watermark behind Social Hub) */}
-      <img 
-        src="/virinchi_logo.png" 
-        alt="Virinchi Logo" 
-        style={{
-          position: 'absolute',
-          left: '50%',
-          top: '50%',
-          transform: 'translate(-50%, -50%)',
-          width: 'clamp(520px, 68vw, 1050px)',
-          filter: 'grayscale(100%) brightness(220%) drop-shadow(0 0 45px rgba(255, 15, 67, 0.25)) drop-shadow(0 0 90px rgba(15, 200, 255, 0.15))',
-          pointerEvents: 'none',
-          zIndex: 10,
-          opacity: animState >= 1 ? 0.35 : 0,
-          transition: 'opacity 1.2s ease-in, transform 1.2s cubic-bezier(0.16, 1, 0.3, 1)'
-        }}
-      />
-
-      {/* Social Media Hub (Instagram Reels, Stories & Channels) */}
-      <SocialHub isVisible={animState >= 1} />
-    </section>
-  );
-};
-
 export default function App() {
   const layer1Ref = useRef(null);
   const layer2Ref = useRef(null);
   const layer3Ref = useRef(null);
   const layer4Ref = useRef(null);
   const handRef = useRef(null); // Reference for the hero's hand
-  const binderRef = useRef(null); // Reference for the spiral notebook binding
-
-  const [showTab7, setShowTab7] = useState(false);
-  const [showDome, setShowDome] = useState(false);
-
-  useEffect(() => {
-    const handleUnlockScroll = () => setShowTab7(true);
-    const handleLockScroll = () => {
-       setShowTab7(false);
-       setShowDome(false); // Close dome too if we scroll up past the trigger
-    };
-    const handleOpenDome = () => setShowDome(true);
-    const handleCloseDome = () => setShowDome(false);
-
-    window.addEventListener('unlock-scroll', handleUnlockScroll);
-    window.addEventListener('lock-scroll', handleLockScroll);
-    window.addEventListener('open-dome', handleOpenDome);
-    window.addEventListener('close-dome', handleCloseDome);
-
-    return () => {
-      window.removeEventListener('unlock-scroll', handleUnlockScroll);
-      window.removeEventListener('lock-scroll', handleLockScroll);
-      window.removeEventListener('open-dome', handleOpenDome);
-      window.removeEventListener('close-dome', handleCloseDome);
-    };
-  }, []);
 
   useEffect(() => {
     // Continuous Cloud Movement
@@ -561,13 +351,10 @@ export default function App() {
     // Parallax Depth on Scroll
     const handleScroll = () => {
       const sy = window.scrollY;
-      const vh = window.innerHeight;
-      if (layer1Ref.current) layer1Ref.current.style.transform = `translateY(${sy * 0.1}px)`;
-      if (layer2Ref.current) layer2Ref.current.style.transform = `translateY(${sy * 0.3}px)`;
-      if (layer3Ref.current) layer3Ref.current.style.transform = `translateY(${sy * 0.5}px)`;
-      if (layer4Ref.current) {
-        layer4Ref.current.style.transform = `translateY(${sy * -0.1}px)`;
-      }
+      if (layer1Ref.current) layer1Ref.current.style.transform = `translateY(\${sy * 0.1}px)`;
+      if (layer2Ref.current) layer2Ref.current.style.transform = `translateY(\${sy * 0.3}px)`;
+      if (layer3Ref.current) layer3Ref.current.style.transform = `translateY(\${sy * 0.5}px)`;
+      if (layer4Ref.current) layer4Ref.current.style.transform = `translateY(\${sy * 0.7}px)`;
     };
     
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -587,7 +374,7 @@ export default function App() {
       <div 
         ref={layer1Ref}
         style={{
-          position: 'absolute', top: '20vh', left: '-10%', width: '120%', height: '100vh',
+          position: 'absolute', top: '10%', left: '-10%', width: '120%', height: '100vh',
           background: `url(${clouds2Img}) repeat-x center/auto 100%`,
           mixBlendMode: 'screen', opacity: 0.6, pointerEvents: 'none', willChange: 'background-position'
         }} 
@@ -595,7 +382,7 @@ export default function App() {
       <div 
         ref={layer2Ref}
         style={{
-          position: 'absolute', top: '77vh', right: '-5%', width: '150%', height: '85vh',
+          position: 'absolute', top: '30%', right: '-5%', width: '150%', height: '120vh',
           background: `url(${clouds1Img}) repeat-x center/auto 100%`,
           mixBlendMode: 'screen', opacity: 0.8, pointerEvents: 'none', willChange: 'background-position'
         }} 
@@ -603,7 +390,7 @@ export default function App() {
       <div 
         ref={layer3Ref}
         style={{
-          position: 'absolute', top: '160vh', left: '-5%', width: '200%', height: '100vh',
+          position: 'absolute', top: '90%', left: '-5%', width: '200%', height: '100vh',
           background: `url(${clouds2Img}) repeat-x center/auto 100%`,
           mixBlendMode: 'screen', opacity: 0.9, pointerEvents: 'none', willChange: 'background-position'
         }} 
@@ -611,23 +398,30 @@ export default function App() {
       <div 
         ref={layer4Ref}
         style={{
-          position: 'absolute', top: '222vh', left: '-20%', width: '200%', height: '105vh',
+          position: 'absolute', top: '120%', left: '-20%', width: '200%', height: '150vh',
           background: `url(${clouds1Img}) repeat-x center/auto 100%`,
           mixBlendMode: 'screen', opacity: 1, pointerEvents: 'none', willChange: 'background-position'
         }} 
       />
 
+      {/* BIRDS */}
+      <AnimatedFlock top="15%" left="0" scale={0.6} delay={1000} duration={35000} count={6} />
+      <AnimatedFlock top="110%" left="0" scale={0.8} delay={0} duration={30000} count={8} />
+
+      {/* BACKGROUND KITES */}
+      <BackgroundKites />
 
       {/* KITE SYSTEM (Parallax Kite and String) */}
       <KiteSystem handRef={handRef} />
+
+      {/* NEW FOREGROUND MOUNTAINS & TREES */}
+      <AnimeLandscape handRef={handRef} />
+
 
       {/* --- SCROLLY-TELLING UI OVERLAYS --- */}
 
       {/* TAB 1: Hero Section (100vh) */}
       <section style={{ height: '100vh', display: 'flex', width: '100%', position: 'relative', zIndex: 100 }}>
-        
-        {/* 4 Background Kites strictly in Tab 1 */}
-        <BackgroundKites />
         
         {/* HEADER MENU */}
         <header style={{ position: 'absolute', top: 0, left: 0, width: '100%', padding: '20px 40px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', zIndex: 120 }}>
@@ -743,10 +537,6 @@ export default function App() {
       {/* TAB 2: About Virinchi (100vh) */}
       <section style={{ height: '100vh', display: 'flex', width: '100%', padding: '50px', position: 'relative', zIndex: 100 }}>
         
-        {/* BACKGROUND KITES & LANDSCAPE STRICTLY IN TAB 2 */}
-        <AnimeLandscape handRef={handRef} />
-        
-
         {/* Content Aligned to the Right (45%) */}
         <div style={{ 
           width: '45%', 
@@ -754,9 +544,7 @@ export default function App() {
           marginRight: '5%',
           display: 'flex',
           flexDirection: 'column',
-          justifyContent: 'center',
-          position: 'relative',
-          zIndex: 20
+          justifyContent: 'center'
         }}>
           {/* A dark glassmorphism container for the About section to ensure readability against the landscape */}
           <div style={{ 
@@ -781,86 +569,9 @@ export default function App() {
             </p>
           </div>
         </div>
-
-        {/* SMALL SIMPLE BOTTOM EDGE FADE TO TAB 3 COLOR */}
-        <div 
-          style={{
-            position: 'absolute',
-            bottom: 0,
-            left: 0,
-            width: '100%',
-            height: '20vh',
-            background: 'linear-gradient(to bottom, transparent, #0d0614)',
-            pointerEvents: 'none',
-            zIndex: 90
-        }} 
-      />
       </section>
 
-      {/* TAB 3 — clip-path allows left/right overflow freely, top overflow for spirals, and bottom overflow for glow spilling onto Tab 4 */}
-      <section style={{ position: 'relative', width: '100%', background: '#0d0614', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 -10px 30px rgba(0,0,0,0.1)', clipPath: 'inset(-200px -100vw -200px -100vw)', zIndex: 110 }}>
-        <NotebookSection />
-        <NotebookBindingBack binderRef={binderRef} />
-        <NotebookBindingFront />
-      </section>
-
-      {/* TAB 4: Executive Board (100vh) */}
-      <ExecutiveBoardSection />
-
-      {/* TAB 5: Events / Culture (Horizontal Scroll) */}
-      <EventsSection />
-
-      {/* Single Shared Glow bridging Tab 5 and Tab 7 to prevent clipping and color mismatch */}
-      <div style={{ position: 'relative', width: '100%', height: 0, zIndex: 120, overflow: 'visible' }}>
-        <GlowingLight style={{ top: '-250px', bottom: 'auto' }} />
-      </div>
-
-      {/* TAB 6: Gallery / Memories (DomeGallery) */}
-      <div id="tab6" style={{ 
-          width: '100vw', 
-          height: showDome ? '100vh' : '0', 
-          position: 'relative',
-          overflow: 'hidden',
-          transition: 'height 0.5s ease',
-          pointerEvents: showDome ? 'auto' : 'none'
-      }}>
-        <DomeGallery
-          fit={0.8}
-          minRadius={600}
-          maxVerticalRotationDeg={0}
-          segments={34}
-          dragDampening={2}
-          grayscale
-        />
-        {/* Close Button for Dome Gallery */}
-        <button 
-          onClick={() => window.dispatchEvent(new Event('close-dome'))}
-          style={{
-            position: 'absolute', top: '20px', right: '30px', zIndex: 50,
-            background: 'rgba(255,255,255,0.1)', color: '#fff', border: '1px solid rgba(255,255,255,0.2)',
-            borderRadius: '50%', width: '40px', height: '40px', fontSize: '20px', cursor: 'pointer',
-            display: 'flex', alignItems: 'center', justifyContent: 'center', backdropFilter: 'blur(5px)'
-          }}
-        >
-          ✕
-        </button>
-      </div>
-
-      {/* TAB 7: The Wings (Freaks United & Rythm) */}
-      {showTab7 && <WingsSection />}
-
-      {/* Single Shared Glow bridging Tab 7 and Tab 8 to prevent clipping and color mismatch */}
-      {showTab7 && (
-        <div style={{ position: 'relative', width: '100%', height: 0, zIndex: 120, overflow: 'visible' }}>
-          <GlowingLight style={{ top: '-250px', bottom: 'auto' }} />
-        </div>
-      )}
-
-      {/* TAB 8: Social Hub with GhostFibers Background */}
-      {showTab7 && <Tab7Section />}
-
-      {/* TAB 9: Cinematic Footer & Contact */}
-      {showTab7 && <ContactSection />}
     </div>
   );
 }
+

@@ -9,7 +9,7 @@ const colors = [
   'rgba(0, 255, 150, 0.4)',     // Neon Green
 ];
 
-export default function GlowingLight() {
+export default function GlowingLight({ style = {} }) {
   const [colorIndex, setColorIndex] = useState(0);
 
   useEffect(() => {
@@ -23,8 +23,9 @@ export default function GlowingLight() {
     <div 
       style={{
         position: 'absolute',
-        bottom: '-20%', // Pulled further down
+        bottom: '-20%', // Default, can be overridden
         left: '0%', 
+        ...style,
         width: '500px',
         height: '500px',
         borderRadius: '50%',

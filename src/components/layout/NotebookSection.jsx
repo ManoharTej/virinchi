@@ -33,11 +33,11 @@ const VirinchiBackground = () => {
 };
 
 const pagesData = [
-  { title: "Introduction", color: "#fefefe", sticky: { text: "Hello!", color: "#ff99cc", top: '10%', right: '-20px' } },
-  { title: "Academic & Professional Background", color: "#f4f4f4", sticky: { text: "Ph.D", color: "#99ccff", top: '40%', right: '-30px' } },
-  { title: "Role in Virinchi", color: "#fefefe", sticky: { text: "Leader", color: "#ffcc66", top: '70%', right: '-15px' } },
-  { title: "Guidance & Mentorship", color: "#f4f4f4", sticky: null },
-  { title: "Faculty Message", color: "#fefefe", sticky: { text: "Inspire", color: "#ccff99", top: '20%', right: '-25px' } },
+  { title: "Introduction", color: "#fefefe", sticky: { text: "Hello!", color: "#ff99cc", top: '10%', right: '-20px' }, polaroid: { src: '/group.png', caption: 'Team', side: 'left' } },
+  { title: "Academic & Professional Background", color: "#f4f4f4", sticky: { text: "Ph.D", color: "#99ccff", top: '40%', right: '-30px' }, polaroid: { src: '/group1.png', caption: 'Memories', side: 'right' } },
+  { title: "Role in Virinchi", color: "#fefefe", sticky: { text: "Leader", color: "#ffcc66", top: '70%', right: '-15px' }, polaroid: { src: '/people.png', caption: 'Events', side: 'left' } },
+  { title: "Guidance & Mentorship", color: "#f4f4f4", sticky: null, polaroid: { src: '/core/pruthvi.png', caption: 'Guidance', side: 'right' } },
+  { title: "Faculty Message", color: "#fefefe", sticky: { text: "Inspire", color: "#ccff99", top: '20%', right: '-25px' }, polaroid: { src: '/core/vaishnavi.png', caption: 'Faculty', side: 'left' } },
 ];
 
 export default function NotebookSection() {
@@ -189,9 +189,42 @@ export default function NotebookSection() {
                         alignItems: 'center',
                         justifyContent: 'center',
                         textAlign: 'center',
-                        backfaceVisibility: 'hidden'
+                        backfaceVisibility: 'hidden',
+                        zIndex: 10
                       }}>
                         {page.sticky.text}
+                      </div>
+                    )}
+
+                    {/* Polaroid with Paperclip */}
+                    {page.polaroid && (
+                      <div style={{
+                        position: 'absolute',
+                        bottom: '20px', 
+                        [page.polaroid.side]: '20px', 
+                        width: '180px',
+                        background: page.color, // Match notebook color
+                        padding: '10px 10px 10px 10px', // Removed bottom padding since there's no text
+                        boxShadow: '0 10px 20px rgba(0,0,0,0.3)',
+                        transform: `rotate(${page.polaroid.side === 'left' ? -8 : 8}deg)`,
+                        zIndex: 5,
+                        backfaceVisibility: 'hidden'
+                      }}>
+                        {/* Tape placed as drawn */}
+                        <div style={{
+                          position: 'absolute',
+                          top: '-12px', 
+                          [page.polaroid.side === 'left' ? 'left' : 'right']: '30px',
+                          width: '60px',
+                          height: '24px',
+                          background: 'rgba(255, 235, 100, 0.75)', // Yellow tape
+                          boxShadow: '0 1px 3px rgba(0,0,0,0.1), inset 0 0 2px rgba(255,235,100,0.8)',
+                          backdropFilter: 'blur(1px)',
+                          transform: `rotate(${page.polaroid.side === 'left' ? -8 : 8}deg)`,
+                          zIndex: 6
+                        }} />
+                        {/* Photo */}
+                        <img src={page.polaroid.src} alt="Polaroid" style={{ width: '100%', height: '180px', objectFit: 'cover', background: '#ccc' }} />
                       </div>
                     )}
                   </div>

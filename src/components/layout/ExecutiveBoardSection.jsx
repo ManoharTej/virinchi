@@ -28,7 +28,7 @@ const portfolioNames = [
 
 // --- COMPONENTS ---
 
-const AnimatedMusicalBackground = () => {
+export const AnimatedMusicalBackground = ({ viewBox = "0 0 1920 1080" }) => {
   const svgRef = useRef(null);
 
   useEffect(() => {
@@ -70,6 +70,14 @@ const AnimatedMusicalBackground = () => {
   for(let i=0; i<5; i++) {
     staves.push(`M-100,${700 + i*35} C500,${900 + i*35} 1000,${500 + i*35} 1600,${700 + i*35} C2000,${850 + i*35} 2300,${600 + i*35} 2600,${800 + i*35}`);
   }
+  // Staff 3 (Bleeding into Tab 5 - top half)
+  for(let i=0; i<5; i++) {
+    staves.push(`M-100,${1200 + i*35} C400,${1100 + i*35} 800,${1500 + i*35} 1400,${1250 + i*35} C1800,${1400 + i*35} 2200,${1150 + i*35} 2500,${1300 + i*35}`);
+  }
+  // Staff 4 (Deep into Tab 5 - bottom half)
+  for(let i=0; i<5; i++) {
+    staves.push(`M-100,${1700 + i*35} C500,${1900 + i*35} 1000,${1600 + i*35} 1500,${1800 + i*35} C1900,${1650 + i*35} 2300,${1900 + i*35} 2600,${1700 + i*35}`);
+  }
 
   const svgNotesList = [
     // Single Note
@@ -77,11 +85,11 @@ const AnimatedMusicalBackground = () => {
     // Double Note
     "M22 3H10v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h10v6.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V3z"
   ];
-  const notesArray = Array.from({length: 30});
+  const notesArray = Array.from({length: 10});
 
   return (
     <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', pointerEvents: 'none', zIndex: 0, overflow: 'hidden', opacity: 0.35 }}>
-      <svg ref={svgRef} width="100%" height="100%" viewBox="0 0 1920 1080" preserveAspectRatio="none" style={{ position: 'absolute', top: 0, left: 0 }}>
+      <svg ref={svgRef} width="100%" height="100%" viewBox={viewBox} preserveAspectRatio="none" style={{ position: 'absolute', top: 0, left: 0, overflow: 'hidden' }}>
         {staves.map((d, i) => (
           <path 
             key={i}

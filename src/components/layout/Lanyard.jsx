@@ -66,27 +66,31 @@ function generateIDCardFront() {
   ctx.font = '30px sans-serif';
   ctx.fillText('CULTURAL CLUB', 300, 120);
   
-  // Profile Photo Box
-  ctx.fillStyle = '#eeeeee';
-  ctx.fillRect(150, 200, 300, 350);
-  ctx.strokeStyle = '#cccccc';
-  ctx.lineWidth = 4;
-  ctx.strokeRect(150, 200, 300, 350);
-  ctx.fillStyle = '#999999';
-  ctx.font = '24px sans-serif';
-  ctx.fillText('Photo Placeholder', 300, 375);
+  // Photo will be rendered as a separate transparent 3D mesh over this area
+  // Text moved to text overlay to render above the photo
+
+  return canvas.toDataURL();
+}
+
+function generateIDCardTextOverlay() {
+  const canvas = document.createElement('canvas');
+  canvas.width = 600;
+  canvas.height = 840;
+  const ctx = canvas.getContext('2d');
   
-  // Name & Details
+  ctx.clearRect(0, 0, 600, 840);
+  
+  ctx.textAlign = 'center';
   ctx.fillStyle = '#222222';
   ctx.font = 'bold 50px sans-serif';
-  ctx.fillText('Dr. T. Swarupa Rani', 300, 650);
+  ctx.fillText('Dr. T. Swarupa Rani', 300, 720);
   
   ctx.fillStyle = '#ff3366';
-  ctx.fillRect(200, 680, 200, 6);
+  ctx.fillRect(200, 750, 200, 6);
   
   ctx.fillStyle = '#555555';
   ctx.font = 'bold 30px sans-serif';
-  ctx.fillText('FACULTY COORDINATOR', 300, 740);
+  ctx.fillText('FACULTY COORDINATOR', 300, 810);
 
   return canvas.toDataURL();
 }
@@ -179,14 +183,24 @@ function Band({
   
   // We use our dynamically generated ID card image for the front
   const generatedFront = useMemo(() => generateIDCardFront(), []);
+  const generatedTextOverlay = useMemo(() => generateIDCardTextOverlay(), []);
   const generatedBack = useMemo(() => generateIDCardBack(), []);
   
   const frontTex = useTexture(generatedFront);
+  const textOverlayTex = useTexture(generatedTextOverlay);
   const backTex = useTexture(generatedBack);
+  const photoTex = useTexture('/core/fc.png');
   
   // Fix textures to look crisp
   frontTex.colorSpace = THREE.SRGBColorSpace;
+  textOverlayTex.colorSpace = THREE.SRGBColorSpace;
   backTex.colorSpace = THREE.SRGBColorSpace;
+  photoTex.colorSpace = THREE.SRGBColorSpace;
+  
+  // Maximize texture clarity for the photo
+  photoTex.anisotropy = 16;
+  photoTex.minFilter = THREE.LinearMipmapLinearFilter;
+  photoTex.magFilter = THREE.LinearFilter;
 
   const [curve] = useState(() => {
     const c = new THREE.CatmullRomCurve3([
@@ -328,6 +342,18 @@ function Band({
                 color="white"
                 roughness={0.9}
               />
+
+              {/* The Profile Photo Mesh (Pulled up and scaled larger) */}
+              <mesh position={[0, 0.01, 0.011]}>
+                <planeGeometry args={[0.79, 0.92]} />
+                <meshBasicMaterial map={photoTex} transparent={true} />
+              </mesh>
+
+              {/* The Text Overlay Mesh (Floats above the photo) */}
+              <mesh position={[0, 0, 0.012]}>
+                <planeGeometry args={[1, 1.4]} />
+                <meshBasicMaterial map={textOverlayTex} transparent={true} />
+              </mesh>
             </mesh>
 
             {/* === SWIVEL CLIP === */}
