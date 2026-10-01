@@ -287,7 +287,7 @@ export default function EventsSection() {
       if (memoriesTextRef.current) {
         finalTl.to(memoriesTextRef.current, {
           scale: isMobile ? 0.45 : 0.9,
-          y: isMobile ? '-40vh' : '-36vh',
+          y: isMobile ? '0vh' : '-36vh',
           x: isMobile ? '0vw' : '25vw',
           duration: 1.5,
           ease: 'power3.out'

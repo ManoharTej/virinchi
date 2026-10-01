@@ -58,7 +58,7 @@
   position: absolute;
   top: -10vh;
   height: 120vh;
-  width: 65vw;
+  width: 55vw;
   pointer-events: none;
   z-index: 2;
   opacity: 0;
@@ -67,7 +67,7 @@
 }
 
 .wings-fog-left {
-  left: -10vw;
+  left: -5vw;
   background: radial-gradient(circle at 35% 50%, rgba(255, 15, 67, 0.8) 0%, rgba(255, 40, 90, 0.4) 35%, transparent 65%);
   filter: url(#smoke-warp-left) blur(18px);
   transform: translateX(-30vw) scale(1.1);
@@ -81,7 +81,7 @@
 }
 
 .wings-fog-right {
-  right: -10vw;
+  right: -5vw;
   background: radial-gradient(circle at 65% 50%, rgba(15, 200, 255, 0.8) 0%, rgba(40, 160, 255, 0.4) 35%, transparent 65%);
   filter: url(#smoke-warp-right) blur(18px);
   transform: translateX(30vw) scale(1.1);
