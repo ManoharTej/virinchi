@@ -251,6 +251,8 @@ const WingsSection = () => {
     };
   }, []);
 
+  const isMobile = window.innerWidth <= 768;
+
   // 2. Horizontal Scroll Pinning via GSAP
   useEffect(() => {
     let ctx = gsap.context(() => {
@@ -396,13 +398,13 @@ const WingsSection = () => {
           <div className="wings-stage-bg" style={{
             position: 'absolute', bottom: '40px', right: 0, width: '60%', height: '100%',
             backgroundImage: "url('/stage.png')",
-            backgroundSize: '150vw auto',
-            backgroundPosition: '-15vw bottom',
+            backgroundSize: isMobile ? '150% auto' : '150vw auto',
+            backgroundPosition: isMobile ? 'center bottom' : '-15vw bottom',
             backgroundRepeat: 'no-repeat',
             zIndex: 1,
             pointerEvents: 'none',
-            WebkitMaskImage: 'linear-gradient(to right, transparent, black 50px)',
-            maskImage: 'linear-gradient(to right, transparent, black 50px)'
+            WebkitMaskImage: isMobile ? 'none' : 'linear-gradient(to right, transparent, black 50px)',
+            maskImage: isMobile ? 'none' : 'linear-gradient(to right, transparent, black 50px)'
           }} />
 
           {/* Stage Lights (Focus Beams) */}
@@ -422,9 +424,9 @@ const WingsSection = () => {
               style={{
                 position: 'absolute',
                 bottom: '40px',
-                left: '-15vw',
-                width: '150vw',
-                height: '51.66vw',
+                left: isMobile ? '0vw' : '-15vw',
+                width: isMobile ? '100vw' : '150vw',
+                height: isMobile ? '70vw' : '51.66vw',
                 pointerEvents: 'auto' // Needed to capture clicks
               }}
             >
@@ -515,16 +517,16 @@ const WingsSection = () => {
 
           {/* Continuous Crowd Background - Left Half (In front of performers, zIndex 5) */}
           <div className="wings-stage-bg" style={{
-            position: 'absolute', bottom: '-10vh', right: 0, width: '60%', height: '100%',
+            position: 'absolute', bottom: isMobile ? '-5vh' : '-10vh', right: 0, width: '60%', height: '100%',
             backgroundImage: "url('/publicgroup.png')",
-            backgroundSize: '140vw auto',
-            backgroundPosition: '-10vw bottom',
+            backgroundSize: isMobile ? '150% auto' : '140vw auto',
+            backgroundPosition: isMobile ? 'center bottom' : '-10vw bottom',
             backgroundRepeat: 'no-repeat',
             opacity: 1,
             zIndex: 5,
             pointerEvents: 'none',
-            WebkitMaskImage: 'linear-gradient(to right, transparent, black 50px)',
-            maskImage: 'linear-gradient(to right, transparent, black 50px)'
+            WebkitMaskImage: isMobile ? 'none' : 'linear-gradient(to right, transparent, black 50px)',
+            maskImage: isMobile ? 'none' : 'linear-gradient(to right, transparent, black 50px)'
           }} />
 
 
@@ -598,13 +600,13 @@ const WingsSection = () => {
           <div className="wings-stage-bg" style={{
             position: 'absolute', bottom: '40px', left: 0, width: '60%', height: '100%',
             backgroundImage: "url('/stage.png')",
-            backgroundSize: '150vw auto',
-            backgroundPosition: '-75vw bottom',
+            backgroundSize: isMobile ? '150% auto' : '150vw auto',
+            backgroundPosition: isMobile ? 'center bottom' : '-75vw bottom',
             backgroundRepeat: 'no-repeat',
             zIndex: 1,
             pointerEvents: 'none',
-            WebkitMaskImage: 'linear-gradient(to left, transparent, black 50px)',
-            maskImage: 'linear-gradient(to left, transparent, black 50px)'
+            WebkitMaskImage: isMobile ? 'none' : 'linear-gradient(to left, transparent, black 50px)',
+            maskImage: isMobile ? 'none' : 'linear-gradient(to left, transparent, black 50px)'
           }} />
 
           {/* Stage Lights (Glowing Orbs) */}
@@ -624,9 +626,9 @@ const WingsSection = () => {
               style={{
                 position: 'absolute',
                 bottom: '40px',
-                left: '-75vw',
-                width: '150vw',
-                height: '51.66vw',
+                left: isMobile ? '0vw' : '-75vw',
+                width: isMobile ? '100vw' : '150vw',
+                height: isMobile ? '70vw' : '51.66vw',
                 pointerEvents: 'auto' // Needed to capture clicks
               }}
             >
@@ -717,16 +719,16 @@ const WingsSection = () => {
 
           {/* Continuous Crowd Background - Right Half (In front of performers, zIndex 5) */}
           <div className="wings-stage-bg" style={{
-            position: 'absolute', bottom: '-10vh', left: 0, width: '60%', height: '100%',
+            position: 'absolute', bottom: isMobile ? '-5vh' : '-10vh', left: 0, width: '60%', height: '100%',
             backgroundImage: "url('/publicgroup.png')",
-            backgroundSize: '140vw auto',
-            backgroundPosition: '-70vw bottom',
+            backgroundSize: isMobile ? '150% auto' : '140vw auto',
+            backgroundPosition: isMobile ? 'center bottom' : '-70vw bottom',
             backgroundRepeat: 'no-repeat',
             opacity: 1,
             zIndex: 5,
             pointerEvents: 'none',
-            WebkitMaskImage: 'linear-gradient(to left, transparent, black 50px)',
-            maskImage: 'linear-gradient(to left, transparent, black 50px)'
+            WebkitMaskImage: isMobile ? 'none' : 'linear-gradient(to left, transparent, black 50px)',
+            maskImage: isMobile ? 'none' : 'linear-gradient(to left, transparent, black 50px)'
           }} />
 
 

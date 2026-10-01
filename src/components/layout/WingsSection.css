@@ -516,7 +516,8 @@
   
   /* Performers */
   .wings-performers {
-    width: 220px !important;
+    width: 300px !important;
+    max-width: 90vw !important;
     bottom: 8vh !important;
     left: 50% !important;
     transform: translateX(-50%) !important;
