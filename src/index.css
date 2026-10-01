@@ -253,7 +253,6 @@ h1, h2, h3, h4, h5, h6 {
 
   /* For complex landscape tabs, use zoom to shrink the exact desktop layout down 
      so it fits on a portrait screen without breaking GSAP math */
-  .events-section-wrapper,
   .wings-section-wrapper,
   .contact-section {
     zoom: 0.5;

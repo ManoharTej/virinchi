@@ -531,6 +531,30 @@ export default function EventsSection() {
             letter-spacing: 3px;
             text-align: center;
           }
+          .ev-sun {
+            width: clamp(150px, 40vw, 320px) !important;
+            height: clamp(150px, 40vw, 320px) !important;
+          }
+          .ev-moon {
+            width: clamp(40px, 15vw, 70px) !important;
+            height: clamp(40px, 15vw, 70px) !important;
+          }
+          .ev-cloud-1 {
+            background-size: auto 100% !important;
+          }
+          .ev-cloud-2 {
+            background-size: auto 100% !important;
+          }
+          @media (max-width: 768px) {
+            .ev-cloud-1 {
+              background-size: auto 50% !important;
+              top: 5vh !important;
+            }
+            .ev-cloud-2 {
+              background-size: auto 40% !important;
+              top: 15vh !important;
+            }
+          }
       `}</style>
 
       <section ref={containerRef} className="events-section-container" style={{width:'100%',height:'100vh',overflow:'hidden',position:'relative',background:'#0d0614'}}>
@@ -559,7 +583,7 @@ export default function EventsSection() {
           <ShootingStars opacityRef={shootingStarsRef} />
 
           {/* SUN */}
-          <div ref={sunRef} style={{
+          <div ref={sunRef} className="ev-sun" style={{
             position:'absolute', zIndex:2, pointerEvents:'none',
             left:'5%', top:'85%',
             transform:'translate(-50%,-50%)',
@@ -583,7 +607,7 @@ export default function EventsSection() {
           </div>
 
           {/* MOON */}
-          <div ref={moonRef} style={{
+          <div ref={moonRef} className="ev-moon" style={{
             position:'absolute', zIndex:2,
             left:'85%', top:'80%',
             transform:'translate(-50%,-50%)',
@@ -596,13 +620,13 @@ export default function EventsSection() {
           }}/>
 
           {/* Clouds */}
-          <div ref={cloudLayer1Ref} style={{
+          <div ref={cloudLayer1Ref} className="ev-cloud-1" style={{
             position: 'absolute', top: '10vh', left: 0, width: '200vw', height: '100vh',
             background: `url(${clouds2Img}) repeat-x center/auto 100%`,
             mixBlendMode: 'screen', opacity: 0.5, zIndex: 3
           }} />
 
-          <div ref={cloudLayer2Ref} style={{
+          <div ref={cloudLayer2Ref} className="ev-cloud-2" style={{
             position: 'absolute', top: '45vh', left: 0, width: '250vw', height: '80vh',
             background: `url(${clouds1Img}) repeat-x center/auto 100%`,
             mixBlendMode: 'screen', opacity: 0.8, zIndex: 4
