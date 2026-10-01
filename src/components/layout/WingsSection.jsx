@@ -398,8 +398,8 @@ const WingsSection = () => {
           <div className="wings-stage-bg" style={{
             position: 'absolute', bottom: '40px', right: 0, width: '60%', height: '100%',
             backgroundImage: "url('/stage.png')",
-            backgroundSize: isMobile ? '200vw auto' : '150vw auto',
-            backgroundPosition: isMobile ? 'left bottom' : '-15vw bottom',
+            backgroundSize: isMobile ? '220vw auto' : '150vw auto',
+            backgroundPosition: isMobile ? '-10vw bottom' : '-15vw bottom',
             backgroundRepeat: 'no-repeat',
             zIndex: 1,
             pointerEvents: 'none',
@@ -424,9 +424,9 @@ const WingsSection = () => {
               style={{
                 position: 'absolute',
                 bottom: '40px',
-                left: isMobile ? '0vw' : '-15vw',
-                width: isMobile ? '200vw' : '150vw',
-                height: isMobile ? '140vw' : '51.66vw',
+                left: isMobile ? '-10vw' : '-15vw',
+                width: isMobile ? '220vw' : '150vw',
+                height: isMobile ? '76vw' : '51.66vw',
                 pointerEvents: 'auto' // Needed to capture clicks
               }}
             >
@@ -519,8 +519,8 @@ const WingsSection = () => {
           <div className="wings-stage-bg" style={{
             position: 'absolute', bottom: isMobile ? '-5vh' : '-10vh', right: 0, width: '60%', height: '100%',
             backgroundImage: "url('/publicgroup.png')",
-            backgroundSize: isMobile ? '200vw auto' : '140vw auto',
-            backgroundPosition: isMobile ? 'left bottom' : '-10vw bottom',
+            backgroundSize: isMobile ? '220vw auto' : '140vw auto',
+            backgroundPosition: isMobile ? '-10vw bottom' : '-10vw bottom',
             backgroundRepeat: 'no-repeat',
             opacity: 1,
             zIndex: 5,
@@ -600,8 +600,8 @@ const WingsSection = () => {
           <div className="wings-stage-bg" style={{
             position: 'absolute', bottom: '40px', left: 0, width: '60%', height: '100%',
             backgroundImage: "url('/stage.png')",
-            backgroundSize: isMobile ? '200vw auto' : '150vw auto',
-            backgroundPosition: isMobile ? 'right bottom' : '-75vw bottom',
+            backgroundSize: isMobile ? '220vw auto' : '150vw auto',
+            backgroundPosition: isMobile ? '-110vw bottom' : '-75vw bottom',
             backgroundRepeat: 'no-repeat',
             zIndex: 1,
             pointerEvents: 'none',
@@ -626,9 +626,9 @@ const WingsSection = () => {
               style={{
                 position: 'absolute',
                 bottom: '40px',
-                left: isMobile ? '-100vw' : '-75vw',
-                width: isMobile ? '200vw' : '150vw',
-                height: isMobile ? '140vw' : '51.66vw',
+                left: isMobile ? '-110vw' : '-75vw',
+                width: isMobile ? '220vw' : '150vw',
+                height: isMobile ? '76vw' : '51.66vw',
                 pointerEvents: 'auto' // Needed to capture clicks
               }}
             >
@@ -721,8 +721,8 @@ const WingsSection = () => {
           <div className="wings-stage-bg" style={{
             position: 'absolute', bottom: isMobile ? '-5vh' : '-10vh', left: 0, width: '60%', height: '100%',
             backgroundImage: "url('/publicgroup.png')",
-            backgroundSize: isMobile ? '200vw auto' : '140vw auto',
-            backgroundPosition: isMobile ? 'right bottom' : '-70vw bottom',
+            backgroundSize: isMobile ? '220vw auto' : '140vw auto',
+            backgroundPosition: isMobile ? '-110vw bottom' : '-70vw bottom',
             backgroundRepeat: 'no-repeat',
             opacity: 1,
             zIndex: 5,
