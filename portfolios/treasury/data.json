@@ -1,0 +1,25 @@
+{
+  "title": "TREASURY",
+  "leads": [
+    {
+      "id": "treas-lead-1",
+      "name": "Abhiram",
+      "role": "LEAD",
+      "image": "/portfolios/treasury/leads/lead.png"
+    }
+  ],
+  "oc": [
+    {
+      "id": "treas-oc-1",
+      "name": "Ajay kumar",
+      "role": "ORGANISING COMMITTEE",
+      "image": "/portfolios/treasury/oc/1.png"
+    },
+    {
+      "id": "treas-oc-2",
+      "name": "Manishchary",
+      "role": "ORGANISING COMMITTEE",
+      "image": "/portfolios/treasury/oc/2.png"
+    }
+  ]
+}
