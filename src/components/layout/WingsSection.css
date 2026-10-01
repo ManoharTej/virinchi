@@ -522,24 +522,24 @@
   /* Logos */
   .wings-panel-logo {
     top: auto !important;
-    bottom: 35vh !important;
-    left: 22% !important;
+    bottom: 35.5vh !important;
+    left: 20% !important;
     right: auto !important;
-    width: 80px !important;
-    transform: rotate(-30deg) !important;
-    opacity: 0.9 !important;
+    width: 60px !important;
+    transform: none !important;
+    opacity: 0.95 !important;
     z-index: 6 !important;
   }
 
   /* Roof Text */
   .crazy-stage-text {
     top: auto !important;
-    bottom: 36vh !important;
-    left: 60% !important;
+    bottom: 36.2vh !important;
+    left: 62% !important;
     right: auto !important;
     width: auto !important;
-    font-size: 4.8vw !important;
-    letter-spacing: 2px !important;
+    font-size: 3.6vw !important;
+    letter-spacing: 1.5px !important;
     transform: translateX(-50%) !important;
     text-align: center !important;
     opacity: 0.95 !important;
