@@ -193,7 +193,7 @@ h1, h2, h3, h4, h5, h6 {
   .polaroid-3 { top: 31% !important; left: -2% !important; }
   .polaroid-4 { top: 29% !important; left: 47% !important; }
   
-  .polaroid-5 { top: 62% !important; left: 4% !important; }
+  .polaroid-5 { top: calc(62% - 50px) !important; left: 4% !important; }
   .polaroid-6 { top: 60% !important; left: 46% !important; }
 
   /* ==================== TAB 2: ABOUT SECTION & KITE ==================== */
@@ -265,8 +265,6 @@ h1, h2, h3, h4, h5, h6 {
   .polaroid img {
     height: 110px !important;
   }
-  
-  .polaroid-5 { top: 72% !important; left: -5% !important; }
 }
 
 /* ==================== MOBILE LANDSCAPE (Short Heights) ==================== */
