@@ -186,15 +186,15 @@ h1, h2, h3, h4, h5, h6 {
     left: -15px !important;
   }
   
-  /* Give a 2-5% gap between each polaroid */
-  .polaroid-1 { top: -2% !important; left: -8% !important; }
-  .polaroid-2 { top: 3% !important; left: 52% !important; }
+  /* Bring polaroids closer together with a neat gap and no overlapping */
+  .polaroid-1 { top: 0% !important; left: 3% !important; }
+  .polaroid-2 { top: 4% !important; left: 44% !important; }
   
-  .polaroid-3 { top: 35% !important; left: -15% !important; }
-  .polaroid-4 { top: 32% !important; left: 58% !important; }
+  .polaroid-3 { top: 31% !important; left: -2% !important; }
+  .polaroid-4 { top: 29% !important; left: 47% !important; }
   
-  .polaroid-5 { top: 72% !important; left: -5% !important; }
-  .polaroid-6 { top: 68% !important; left: 52% !important; }
+  .polaroid-5 { top: 62% !important; left: 4% !important; }
+  .polaroid-6 { top: 60% !important; left: 46% !important; }
 
   /* ==================== TAB 2: ABOUT SECTION & KITE ==================== */
   .tab2-about-section {
