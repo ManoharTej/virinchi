@@ -505,10 +505,10 @@
   
   /* Performers */
   .wings-performers {
-    width: 250px !important;
-    max-width: 80vw !important;
+    width: 200px !important;
+    max-width: 70vw !important;
     bottom: 14vh !important;
-    left: 50% !important;
+    left: 45% !important;
     transform: translateX(-50%) !important;
   }
   
