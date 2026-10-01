@@ -137,18 +137,19 @@ export default function EventsSection() {
   const galleryContainerRef = useRef(null);
 
   const [startFlap, setStartFlap] = useState(false);
+  const isMobile = window.innerWidth <= 768;
 
   const photos = [
-    { src: '/group.png', top: '5%', left: '8%', speed: 1.5, zIndex: 5, width: '280px', label: 'Folder 1' },
-    { src: '/group1.png', top: '35%', left: '25%', speed: 0.8, zIndex: 2, width: '350px', label: 'Folder 2' },
-    { src: '/silhouette_bathukamma.jpg', top: '10%', left: '55%', speed: 2, zIndex: 10, width: '250px', label: 'Folder 3' },
-    { src: '/core/pruthvi.png', top: '50%', left: '75%', speed: 1.2, zIndex: 7, width: '220px', label: 'Folder 4' },
-    { src: '/core/vaishnavi.png', top: '60%', left: '12%', speed: 2.5, zIndex: 15, width: '220px', label: 'Folder 5' },
-    { src: '/core/manohar.png', top: '15%', left: '35%', speed: 0.5, zIndex: 1, width: '180px', label: 'Folder 6' },
-    { src: '/people.png', top: '40%', left: '45%', speed: 1.8, zIndex: 8, width: '320px', label: 'Folder 7' },
-    { src: '/group.png', top: '25%', left: '82%', speed: 1.1, zIndex: 4, width: '260px', label: 'Folder 8' },
-    { src: '/group1.png', top: '65%', left: '50%', speed: 2.2, zIndex: 12, width: '280px', label: 'Folder 9' },
-    { src: '/people.png', top: '5%', left: '78%', speed: 0.9, zIndex: 3, width: '220px', label: 'Folder 10' },
+    { src: '/group.png', top: '5%', left: '8%', speed: 1.5, zIndex: 5, width: isMobile ? '120px' : '280px', label: 'Folder 1' },
+    { src: '/group1.png', top: '35%', left: '25%', speed: 0.8, zIndex: 2, width: isMobile ? '140px' : '350px', label: 'Folder 2' },
+    { src: '/silhouette_bathukamma.jpg', top: '10%', left: '55%', speed: 2, zIndex: 10, width: isMobile ? '110px' : '250px', label: 'Folder 3' },
+    { src: '/core/pruthvi.png', top: '50%', left: '75%', speed: 1.2, zIndex: 7, width: isMobile ? '100px' : '220px', label: 'Folder 4' },
+    { src: '/core/vaishnavi.png', top: '60%', left: '12%', speed: 2.5, zIndex: 15, width: isMobile ? '100px' : '220px', label: 'Folder 5' },
+    { src: '/core/manohar.png', top: '15%', left: '35%', speed: 0.5, zIndex: 1, width: isMobile ? '80px' : '180px', label: 'Folder 6' },
+    { src: '/people.png', top: '40%', left: '45%', speed: 1.8, zIndex: 8, width: isMobile ? '130px' : '320px', label: 'Folder 7' },
+    { src: '/group.png', top: '25%', left: '82%', speed: 1.1, zIndex: 4, width: isMobile ? '110px' : '260px', label: 'Folder 8' },
+    { src: '/group1.png', top: '65%', left: '50%', speed: 2.2, zIndex: 12, width: isMobile ? '120px' : '280px', label: 'Folder 9' },
+    { src: '/people.png', top: '5%', left: '78%', speed: 0.9, zIndex: 3, width: isMobile ? '100px' : '220px', label: 'Folder 10' },
   ];
 
   // Pre-generate stars
@@ -285,9 +286,9 @@ export default function EventsSection() {
       // 3. Shrink and move MEMORIES text to top right
       if (memoriesTextRef.current) {
         finalTl.to(memoriesTextRef.current, {
-          scale: 0.9,
-          y: '-36vh',
-          x: '25vw',
+          scale: isMobile ? 0.45 : 0.9,
+          y: isMobile ? '-40vh' : '-36vh',
+          x: isMobile ? '0vw' : '25vw',
           duration: 1.5,
           ease: 'power3.out'
         }, "+=2.2"); // wait for text flapping to finish
@@ -720,7 +721,7 @@ export default function EventsSection() {
         </div>
 
         {/* SplitFlapText that appears after the fade */}
-        <div ref={memoriesTextRef} className="ev-parallax-bg" style={{ position: 'absolute', top: '40vh', left: 0, width: '100%', height: '60vh', display: 'flex', justifyContent: 'center', zIndex: 110, opacity: 0, pointerEvents: 'none', transform: 'scale(2)' }}>
+        <div ref={memoriesTextRef} className="ev-parallax-bg" style={{ position: 'absolute', top: '40vh', left: 0, width: '100%', height: '60vh', display: 'flex', justifyContent: 'center', zIndex: 110, opacity: 0, pointerEvents: 'none', transform: isMobile ? 'scale(0.85)' : 'scale(2)' }}>
           {startFlap && (
             <SplitFlapText
               words={["        ", "MEMORIES"]}
