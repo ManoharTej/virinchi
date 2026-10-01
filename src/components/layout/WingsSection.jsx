@@ -441,7 +441,7 @@ const WingsSection = () => {
           <div className="wings-fog-stage-freaks" style={{ zIndex: 2 }} />
 
           {/* Stage People - Freaks (In front of lights, behind crowd, darkened silhouette with floor smoke) */}
-          <div className="wings-performers" style={{
+          <div className="wings-performers wings-performers-freaks" style={{
             position: 'absolute', bottom: '26vh', right: '8%',
             width: '280px', height: 'auto',
             zIndex: 4,
@@ -643,7 +643,7 @@ const WingsSection = () => {
           <div className="wings-fog-stage-rythm" style={{ zIndex: 2 }} />
 
           {/* Stage People - Rhythm (In front of lights, behind crowd, darkened silhouette with floor smoke) */}
-          <div className="wings-performers" style={{
+          <div className="wings-performers wings-performers-rythm" style={{
             position: 'absolute', bottom: '26vh', left: '8%',
             width: '280px', height: 'auto',
             zIndex: 4,

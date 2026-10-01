@@ -508,8 +508,15 @@
     width: 190px !important;
     max-width: 75vw !important;
     bottom: 14vh !important;
-    left: 38% !important;
     transform: translateX(-50%) !important;
+  }
+
+  .wings-performers-freaks {
+    left: 62% !important;
+  }
+
+  .wings-performers-rythm {
+    left: 38% !important;
   }
   
   /* Logos */
