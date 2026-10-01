@@ -179,8 +179,8 @@ h1, h2, h3, h4, h5, h6 {
   }
 
   .hero-polaroid-cluster {
-    /* Scale increased by 10% (0.55 -> 0.605) */
-    transform: perspective(1500px) rotateY(0deg) rotateX(0deg) scale(0.605) !important;
+    /* Scale increased by 20% (0.605 -> 0.725) */
+    transform: perspective(1500px) rotateY(0deg) rotateX(0deg) scale(0.725) !important;
     transform-origin: top center !important;
     margin-top: 55px !important;
     left: -15px !important;
@@ -207,7 +207,7 @@ h1, h2, h3, h4, h5, h6 {
     width: 100% !important;
     margin-left: 0 !important;
     margin-right: 0 !important;
-    margin-top: 6vh !important; /* Pulled 12% down from -6vh */
+    margin-top: 1vh !important; /* Moved 5% up */
   }
 
   .about-content-wrapper > div {
