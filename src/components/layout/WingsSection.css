@@ -522,29 +522,50 @@
   /* Logos */
   .wings-panel-logo {
     top: auto !important;
-    bottom: calc(37vh - 10px) !important;
-    left: calc(28% + 10px) !important;
-    right: auto !important;
-    width: 60px !important;
     transform: none !important;
     opacity: 0.95 !important;
     z-index: 6 !important;
   }
 
+  .wings-panel-logo-freaks {
+    bottom: calc(37vh - 10px) !important;
+    left: calc(28% + 10px) !important;
+    right: auto !important;
+    width: 60px !important;
+  }
+
+  .wings-panel-logo-rythm {
+    bottom: calc(37vh - 10px) !important;
+    right: calc(28% + 10px) !important;
+    left: auto !important;
+    width: 50px !important;
+  }
+
   /* Roof Text */
   .crazy-stage-text {
     top: auto !important;
-    bottom: calc(36.2vh + 9px) !important;
-    left: calc(62% + 45px) !important;
-    right: auto !important;
     width: auto !important;
     font-size: 3.6vw !important;
     letter-spacing: 1.5px !important;
-    transform: translateX(-50%) !important;
-    text-align: center !important;
     opacity: 0.95 !important;
     z-index: 6 !important;
     white-space: nowrap !important;
+  }
+
+  .freaks-roof-text {
+    bottom: calc(36.2vh + 9px) !important;
+    left: calc(62% + 45px) !important;
+    right: auto !important;
+    transform: translateX(-50%) !important;
+    text-align: center !important;
+  }
+
+  .rythm-roof-text {
+    bottom: calc(36.2vh + 9px) !important;
+    right: calc(62% + 45px) !important;
+    left: auto !important;
+    transform: translateX(50%) !important;
+    text-align: center !important;
   }
 
   /* Panel 1 (Intro) */

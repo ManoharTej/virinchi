@@ -531,7 +531,7 @@ const WingsSection = () => {
 
 
           {/* Freaks United Logo Image */}
-          <div className="wings-panel-logo" style={{
+          <div className="wings-panel-logo wings-panel-logo-freaks" style={{
             position: 'absolute', top: '13%', right: '40%',
             width: '140px', height: 'auto',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -733,7 +733,7 @@ const WingsSection = () => {
 
 
           {/* Rhythm Logo Image */}
-          <div className="wings-panel-logo" style={{
+          <div className="wings-panel-logo wings-panel-logo-rythm" style={{
             position: 'absolute', top: '12%', left: '40%',
             width: '98px', height: 'auto',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
