@@ -534,8 +534,8 @@
   /* Roof Text */
   .crazy-stage-text {
     top: auto !important;
-    bottom: calc(36.2vh + 6px) !important;
-    left: calc(62% + 40px) !important;
+    bottom: calc(36.2vh + 9px) !important;
+    left: calc(62% + 45px) !important;
     right: auto !important;
     width: auto !important;
     font-size: 3.6vw !important;
