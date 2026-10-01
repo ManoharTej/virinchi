@@ -251,12 +251,7 @@ h1, h2, h3, h4, h5, h6 {
     height: 150px !important;
   }
 
-  /* For complex landscape tabs, use zoom to shrink the exact desktop layout down 
-     so it fits on a portrait screen without breaking GSAP math */
-  .wings-section-wrapper,
-  .contact-section {
-    zoom: 0.5;
-  }
+
   
   .social-hub-wrapper {
     zoom: 1 !important;
