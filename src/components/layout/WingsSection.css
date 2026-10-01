@@ -522,8 +522,8 @@
   /* Logos */
   .wings-panel-logo {
     top: auto !important;
-    bottom: 37vh !important;
-    left: 28% !important;
+    bottom: calc(37vh - 10px) !important;
+    left: calc(28% + 10px) !important;
     right: auto !important;
     width: 60px !important;
     transform: none !important;
