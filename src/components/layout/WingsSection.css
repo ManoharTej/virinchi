@@ -530,9 +530,9 @@
 
   .wings-panel-logo-freaks {
     bottom: 44vh !important;
-    left: 12% !important;
+    left: calc(12% - 30px) !important;
     right: auto !important;
-    width: 120px !important;
+    width: 150px !important;
   }
 
   .wings-panel-logo-rythm {
