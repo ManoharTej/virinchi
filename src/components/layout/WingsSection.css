@@ -535,10 +535,10 @@
   }
 
   .wings-panel-logo-rythm {
-    bottom: calc(37vh - 10px) !important;
-    right: calc(28% + 10px) !important;
+    bottom: calc(37vh - 15px) !important;
+    right: calc(28% + 15px) !important;
     left: auto !important;
-    width: 50px !important;
+    width: 35px !important;
   }
 
   /* Roof Text */
