@@ -721,7 +721,7 @@ export default function EventsSection() {
         </div>
 
         {/* SplitFlapText that appears after the fade */}
-        <div ref={memoriesTextRef} className="ev-parallax-bg" style={{ position: 'absolute', top: '40vh', left: 0, width: '100%', height: '60vh', display: 'flex', justifyContent: 'center', zIndex: 110, opacity: 0, pointerEvents: 'none', transform: isMobile ? 'scale(0.85)' : 'scale(2)' }}>
+        <div ref={memoriesTextRef} className="ev-parallax-bg" style={{ position: 'absolute', top: 0, left: 0, width: '100vw', height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 110, opacity: 0, pointerEvents: 'none', transform: isMobile ? 'scale(0.85)' : 'scale(2)' }}>
           {startFlap && (
             <SplitFlapText
               words={["        ", "MEMORIES"]}
