@@ -207,6 +207,8 @@ export default function EventsSection() {
       if (cloudLayer2Ref.current) gsap.to(cloudLayer2Ref.current, { backgroundPositionX: '100%', duration: 120, repeat: -1, ease: 'none' });
 
       const panels = gsap.utils.toArray('.ev-panel', slidesRef.current);
+      if (panels.length === 0) return;
+      
       const horizontalScroll = window.innerWidth * (panels.length - 1);
       const fadeScroll = window.innerHeight * 1.5; // Huge buffer so user can stop scrolling without unpinning
       const totalScroll = horizontalScroll + fadeScroll;
@@ -218,14 +220,12 @@ export default function EventsSection() {
           trigger: containerRef.current,
           pin: true,
           scrub: 1,
+          start: 'top top',
           end: () => '+=' + totalScroll,
           onUpdate: (self) => {
-            // We want the user to scroll through the ENTIRE fadeScroll buffer
-            // so they see the sun set, the moon rise, and the stars come out!
             if (self.progress > 0.995) {
               if (finalTl.paused() || finalTl.progress() === 0) {
                 if (!fadeTimeout) {
-                  // Wait 1000ms before playing the final memories fade!
                   fadeTimeout = setTimeout(() => {
                     finalTl.timeScale(1).play();
                   }, 1000);
@@ -251,7 +251,7 @@ export default function EventsSection() {
         ease: 'none',
         duration: horizontalScroll / totalScroll
       });
-
+      
       // Phase 2: Empty spacer so the Cultural Fest panel remains pinned and still during the fade buffer
       tl.to({}, { duration: fadeScroll / totalScroll });
 
@@ -503,12 +503,41 @@ export default function EventsSection() {
           10% { transform: translateX(-500px) translateY(500px) rotate(-45deg); opacity: 0; width: 0; }
           100% { opacity: 0; }
         }
+        .ev-title-1 {
+          font-size: clamp(5rem, 15vw, 12rem);
+          letter-spacing: 20px;
+        }
+        .ev-title-2 {
+          font-size: clamp(3.5rem, 7.5vw, 7.5rem);
+          letter-spacing: 4px;
+        }
+        .ev-title-3 {
+          font-size: clamp(4rem, 8.5vw, 8.5rem);
+          letter-spacing: 6px;
+        }
+        
+        @media (max-width: 768px) {
+          .ev-title-1 {
+            font-size: clamp(2.5rem, 12vw, 4rem);
+            letter-spacing: 8px;
+          }
+          .ev-title-2 {
+            font-size: clamp(1.8rem, 10vw, 3.5rem);
+            letter-spacing: 2px;
+            text-align: center;
+          }
+          .ev-title-3 {
+            font-size: clamp(2rem, 11vw, 4rem);
+            letter-spacing: 3px;
+            text-align: center;
+          }
       `}</style>
 
-      <section ref={containerRef} style={{width:'100%',height:'100vh',overflow:'hidden',position:'relative',background:'#0d0614'}}>
+      <section ref={containerRef} className="events-section-container" style={{width:'100%',height:'100vh',overflow:'hidden',position:'relative',background:'#0d0614'}}>
         
         {/* PARALLAX WRAPPER FOR BACKGROUND */}
-        <div ref={parallaxWrapperRef} style={{position:'absolute', inset: -60, pointerEvents:'none'}}>
+        <div className="ev-parallax-bg" style={{position:'absolute', inset: 0, pointerEvents:'none', zIndex: 0}}>
+          <div ref={parallaxWrapperRef} style={{position:'absolute', inset: -60}}>
           {/* Morphological Sky Layer */}
           <div ref={skyRef} style={{
             position: 'absolute', inset: 0, zIndex: 1,
@@ -579,9 +608,10 @@ export default function EventsSection() {
             mixBlendMode: 'screen', opacity: 0.8, zIndex: 4
           }} />
         </div>
+        </div>
 
         {/* PARALLAX FOR FOREGROUND SILHOUETTES */}
-        <div ref={fgParallaxRef} style={{position:'absolute', inset: -30, pointerEvents:'none', zIndex: 5}}>
+        <div ref={fgParallaxRef} className="ev-parallax-bg" style={{position:'absolute', inset: -30, pointerEvents:'none', zIndex: 5}}>
            <div ref={powerlinesRef} style={{position:'absolute', bottom:0, left:0, width:'200vw', height:'25vh'}}>
              <svg viewBox="0 0 1000 200" preserveAspectRatio="none" style={{width:'100%', height:'100%', fill:'#030108'}}>
                 {/* Rolling hills/ground base */}
@@ -616,7 +646,7 @@ export default function EventsSection() {
         </div>
 
         {/* Tab 4 Background Fade Overlay for Panel 1 */}
-        <div ref={fadeOverlayRef} style={{
+        <div ref={fadeOverlayRef} className="ev-parallax-bg" style={{
           position: 'absolute', inset: 0, zIndex: 10,
           background: 'linear-gradient(to bottom, #1a0815 0%, #0d0614 100%)', pointerEvents: 'none'
         }}>
@@ -624,11 +654,11 @@ export default function EventsSection() {
         </div>
 
         {/* Horizontal Slide Content */}
-        <div ref={slidesRef} style={{width:'400vw',height:'100vh',display:'flex', position:'relative', zIndex: 20}}>
+        <div ref={slidesRef} className="ev-slides-container" style={{width:'400vw',height:'100vh',display:'flex', position:'relative', zIndex: 20}}>
 
           {/* Panel 1: EVENTS INTRO */}
-          <div className="ev-panel" style={{width:'100vw',height:'100vh',flexShrink:0,position:'relative',display:'flex',alignItems:'center',justifyContent:'center'}}>
-            <h1 style={{fontSize:'clamp(5rem,15vw,12rem)',color:'white',margin:0,fontWeight:900,textTransform:'uppercase',letterSpacing:'20px',textShadow:'0 0 60px rgba(255,51,102,0.7)'}}>EVENTS</h1>
+          <div className="ev-panel" style={{width:'100vw',maxWidth:'100vw',height:'100vh',flexShrink:0,position:'relative',display:'flex',alignItems:'center',justifyContent:'center',overflow:'hidden'}}>
+            <h1 className="ev-title-1" style={{color:'white',margin:0,fontWeight:900,textTransform:'uppercase',textShadow:'0 0 60px rgba(255,51,102,0.7)'}}>EVENTS</h1>
             <div style={{position:'absolute',bottom:'12%',display:'flex',alignItems:'center',gap:'12px',opacity:0.5}}>
               <span style={{color:'white',fontSize:'11px',letterSpacing:'4px',textTransform:'uppercase'}}>Scroll to explore</span>
               <div style={{width:'32px',height:'2px',background:'white'}}/>
@@ -637,36 +667,36 @@ export default function EventsSection() {
           </div>
 
           {/* Panel 2: BATHUKAMMA */}
-          <div className="ev-panel" style={{width:'100vw',height:'100vh',flexShrink:0,position:'relative',display:'flex',alignItems:'center',justifyContent:'center'}}>
+          <div className="ev-panel" style={{width:'100vw',maxWidth:'100vw',height:'100vh',flexShrink:0,position:'relative',display:'flex',alignItems:'center',justifyContent:'center',overflow:'hidden'}}>
             <FloatingPetals />
             <div style={{zIndex:30,textAlign:'center'}}>
-              <h2 style={{fontSize:'clamp(3.5rem,7.5vw,7.5rem)',color:'#fff',margin:0,fontWeight:900,lineHeight:1,letterSpacing:'4px', textShadow: '0 4px 15px rgba(0,0,0,0.7)'}}>BATHUKAMMA</h2>
+              <h2 className="ev-title-2" style={{color:'#fff',margin:0,fontWeight:900,lineHeight:1, textShadow: '0 4px 15px rgba(0,0,0,0.7)'}}>BATHUKAMMA</h2>
             </div>
           </div>
 
           {/* Panel 3: SANKRANTHI */}
-          <div className="ev-panel" style={{width:'100vw',height:'100vh',flexShrink:0,position:'relative',display:'flex',alignItems:'center',justifyContent:'center'}}>
+          <div className="ev-panel" style={{width:'100vw',maxWidth:'100vw',height:'100vh',flexShrink:0,position:'relative',display:'flex',alignItems:'center',justifyContent:'center',overflow:'hidden'}}>
             <FloatingKites />
             <div style={{zIndex:30,textAlign:'center'}}>
-              <h2 style={{fontSize:'clamp(3.5rem,7.5vw,7.5rem)',color:'#fff',margin:0,fontWeight:900,lineHeight:1,letterSpacing:'4px', textShadow: '0 4px 15px rgba(0,0,0,0.7)'}}>SANKRANTHI</h2>
+              <h2 className="ev-title-2" style={{color:'#fff',margin:0,fontWeight:900,lineHeight:1, textShadow: '0 4px 15px rgba(0,0,0,0.7)'}}>SANKRANTHI</h2>
             </div>
           </div>
 
           {/* Panel 4: CULTURAL FEST */}
-          <div className="ev-panel" style={{width:'100vw',height:'100vh',flexShrink:0,position:'relative',display:'flex',alignItems:'center',justifyContent:'center'}}>
+          <div className="ev-panel" style={{width:'100vw',maxWidth:'100vw',height:'100vh',flexShrink:0,position:'relative',display:'flex',alignItems:'center',justifyContent:'center',overflow:'hidden'}}>
             <div style={{textAlign:'center',zIndex:30}}>
-              <h2 style={{fontSize:'clamp(4rem,8.5vw,8.5rem)',color:'#fff',margin:0,fontWeight:900,lineHeight:1,letterSpacing:'6px',textShadow:'0 0 60px rgba(255,80,200,0.8), 0 8px 30px rgba(0,0,0,0.9)'}}>CULTURAL FEST</h2>
+              <h2 className="ev-title-3" style={{color:'#fff',margin:0,fontWeight:900,lineHeight:1,textShadow:'0 0 60px rgba(255,80,200,0.8), 0 8px 30px rgba(0,0,0,0.9)'}}>CULTURAL FEST</h2>
             </div>
           </div>
 
         </div>
 
         {/* Final Fade to Black Overlay (Glow moved to App.jsx for seamless boundary) */}
-        <div ref={endFadeOverlayRef} style={{ position: 'absolute', top: 0, left: 0, width: '100vw', height: '100vh', background: '#0d0614', zIndex: 100, opacity: 0, pointerEvents: 'none', overflow: 'hidden' }}>
+        <div ref={endFadeOverlayRef} className="ev-parallax-bg" style={{ position: 'absolute', top: 0, left: 0, width: '100vw', height: '100vh', background: '#0d0614', zIndex: 100, opacity: 0, pointerEvents: 'none', overflow: 'hidden' }}>
         </div>
 
         {/* SplitFlapText that appears after the fade */}
-        <div ref={memoriesTextRef} style={{ position: 'absolute', top: '40vh', width: '100%', display: 'flex', justifyContent: 'center', zIndex: 110, opacity: 0, pointerEvents: 'none', transform: 'scale(2)' }}>
+        <div ref={memoriesTextRef} className="ev-parallax-bg" style={{ position: 'absolute', top: '40vh', left: 0, width: '100%', height: '60vh', display: 'flex', justifyContent: 'center', zIndex: 110, opacity: 0, pointerEvents: 'none', transform: 'scale(2)' }}>
           {startFlap && (
             <SplitFlapText
               words={["        ", "MEMORIES"]}
@@ -687,7 +717,7 @@ export default function EventsSection() {
         </div>
 
         {/* Gallery / Memories - Hidden below initially, slides up */}
-        <div ref={galleryContainerRef} style={{ position: 'absolute', top: '100vh', left: 0, width: '100vw', height: '100vh', zIndex: 120, perspective: '1000px', pointerEvents: 'auto' }}>
+        <div ref={galleryContainerRef} className="ev-parallax-bg" style={{ position: 'absolute', top: '100vh', left: 0, width: '100vw', height: '100vh', zIndex: 120, perspective: '1000px', pointerEvents: 'none' }}>
           <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}>
             {photos.map((p, i) => (
               <div 
@@ -701,6 +731,7 @@ export default function EventsSection() {
                   width: p.width,
                   zIndex: p.zIndex,
                   cursor: 'pointer',
+                  pointerEvents: 'auto', // Re-enable pointer events for the actual photos
                   transformStyle: 'preserve-3d',
                   transition: 'z-index 0.3s'
                 }}

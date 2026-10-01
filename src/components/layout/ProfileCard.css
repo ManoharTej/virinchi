@@ -446,10 +446,11 @@
 
   .pc-details h3 {
     font-size: min(4svh, 2.5em);
+    bottom: 45px;
   }
 
   .pc-details p {
-    font-size: 14px;
+    font-size: 20px;
   }
 
   .pc-user-info {
@@ -492,11 +493,12 @@
 
   .pc-details h3 {
     font-size: min(3.5svh, 2em);
+    bottom: 45px;
   }
 
   .pc-details p {
-    font-size: 12px;
-    top: -8px;
+    font-size: 20px;
+    top: -10px;
   }
 
   .pc-user-info {

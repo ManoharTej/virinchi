@@ -35,6 +35,7 @@ const ProfileCardComponent = ({
   status = 'Active',
   contactText = 'Contact',
   showUserInfo = true,
+  forceActive = false,
   onContactClick
 }) => {
   const wrapRef = useRef(null);
@@ -307,7 +308,7 @@ const ProfileCardComponent = ({
 
   return (
     <div ref={wrapRef} className={`pc-card-wrapper ${className}`.trim()} style={cardStyle}>
-      {behindGlowEnabled && <div className="pc-behind" />}
+      {behindGlowEnabled && <div className="pc-behind" style={{ opacity: forceActive ? 1 : undefined }} />}
       <div ref={shellRef} className="pc-card-shell">
         <section className="pc-card">
           <div className="pc-inside">

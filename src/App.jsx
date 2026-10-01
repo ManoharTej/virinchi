@@ -262,13 +262,13 @@ const KiteSystem = ({ handRef }) => {
 
   return (
     <>
-      <svg style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', pointerEvents: 'none', zIndex: 105 }}>
-        <path ref={stringRef} fill="transparent" stroke="rgba(255,255,255,0.9)" strokeWidth="2.5" />
+      <svg className="kite-string-svg" style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', pointerEvents: 'none', zIndex: 105 }}>
+        <path ref={stringRef} className="kite-string-path" fill="transparent" stroke="rgba(255,255,255,0.9)" strokeWidth="2.5" />
       </svg>
       
       
-      <div ref={kiteContainerRef} style={{ position: 'fixed', left: '45%', top: '5vh', zIndex: 106, pointerEvents: 'none' }}>
-         <div ref={kiteSwayRef}>
+      <div ref={kiteContainerRef} className="main-kite-container" style={{ position: 'fixed', left: '45%', top: '5vh', zIndex: 106, pointerEvents: 'none' }}>
+         <div ref={kiteSwayRef} className="main-kite-svg-wrapper">
            <svg width="150" height="350" viewBox="0 0 100 250" style={{ overflow: 'visible' }}>
              {/* Kite Body - Striped/Colorful */}
              <polygon points="50,0 100,50 50,120 0,50" fill="#ff0055" /> 
@@ -624,19 +624,19 @@ export default function App() {
       {/* --- SCROLLY-TELLING UI OVERLAYS --- */}
 
       {/* TAB 1: Hero Section (100vh) */}
-      <section style={{ height: '100vh', display: 'flex', width: '100%', position: 'relative', zIndex: 100 }}>
+      <section className="tab1-hero-section" style={{ height: '100vh', display: 'flex', width: '100%', position: 'relative', zIndex: 100 }}>
         
         {/* 4 Background Kites strictly in Tab 1 */}
         <BackgroundKites />
         
         {/* HEADER MENU */}
-        <header style={{ position: 'absolute', top: 0, left: 0, width: '100%', padding: '20px 40px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', zIndex: 120 }}>
+        <header className="hero-header" style={{ position: 'absolute', top: 0, left: 0, width: '100%', padding: '20px 40px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', zIndex: 120 }}>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '4px' }}>
             <img src="/virinchi_logo.png" alt="Logo" style={{ width: '75px', filter: 'drop-shadow(0 2px 5px rgba(0,0,0,0.5))' }} />
             <span style={{ fontSize: '8px', color: 'rgba(255,255,255,0.85)', letterSpacing: '1px', marginLeft: '3px' }}>THE CULTURAL CLUB OF VBIT</span>
           </div>
           
-          <nav style={{ display: 'flex', gap: '25px', color: 'white', fontSize: '0.9rem', fontWeight: 500, letterSpacing: '0.5px' }}>
+          <nav className="hero-nav" style={{ display: 'flex', gap: '25px', color: 'white', fontSize: '0.9rem', fontWeight: 500, letterSpacing: '0.5px' }}>
             <span style={{ position: 'relative' }}>Home <div style={{ position: 'absolute', bottom: '-8px', left: '50%', transform: 'translateX(-50%)', width: '20px', height: '2px', background: 'white', borderRadius: '2px' }}></div><div style={{ position: 'absolute', bottom: '-11px', left: '50%', transform: 'translateX(-50%)', width: '6px', height: '6px', background: 'white', borderRadius: '50%' }}></div></span>
             <span style={{ opacity: 0.7, cursor: 'pointer' }}>About</span>
             <span style={{ opacity: 0.7, cursor: 'pointer' }}>People</span>
@@ -664,17 +664,18 @@ export default function App() {
 
 
         {/* Left Side: Big Glow Logo */}
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'center', paddingLeft: '140px', paddingTop: '60px' }}>
+        <div className="hero-left-content" style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'center', paddingLeft: '140px', paddingTop: '60px' }}>
           <img 
             src="/virinchi_logo.png" 
             alt="Virinchi Logo" 
+            className="hero-logo-img"
             style={{ width: '38vw', maxWidth: '600px', filter: 'drop-shadow(0 0 40px rgba(255,255,255,0.7)) drop-shadow(0 0 10px rgba(255,255,255,0.5))' }} 
           />
           <p style={{ color: 'white', letterSpacing: '4px', fontSize: '1rem', marginTop: '10px', marginLeft: '30px', fontWeight: 500, textShadow: '0 2px 4px rgba(0,0,0,0.5)' }}>
             THE CULTURAL CLUB OF VBIT
           </p>
 
-          <div style={{ marginTop: '40px', marginLeft: '50px', display: 'flex', flexDirection: 'column', alignItems: 'center', cursor: 'pointer', transition: 'transform 0.2s' }}>
+          <div className="hero-watch-btn" style={{ marginTop: '40px', marginLeft: '50px', display: 'flex', flexDirection: 'column', alignItems: 'center', cursor: 'pointer', transition: 'transform 0.2s' }}>
             <div style={{ width: '50px', height: '50px', borderRadius: '50%', border: '1px solid rgba(255,255,255,0.6)', display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: '10px' }}>
               <span style={{ color: 'white', fontSize: '12px', marginLeft: '3px' }}>▶</span>
             </div>
@@ -683,45 +684,45 @@ export default function App() {
         </div>
 
         {/* Right Side: Media Cards Cluster (6 Polaroids scattered like the photo, tilted inward) */}
-        <div style={{ flex: 1, position: 'relative', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <div className="hero-right-content" style={{ flex: 1, position: 'relative', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           
-          <div style={{ position: 'relative', width: '700px', height: '600px', transformStyle: 'preserve-3d', transform: 'perspective(1500px) rotateY(-20deg) rotateX(5deg)' }}>
+          <div className="hero-polaroid-cluster" style={{ position: 'relative', width: '700px', height: '600px', transformStyle: 'preserve-3d', transform: 'perspective(1500px) rotateY(-20deg) rotateX(5deg)' }}>
             
             {/* Soft background magical glow behind the cluster */}
             <div style={{ position: 'absolute', top: '20%', left: '20%', width: '60%', height: '60%', background: 'radial-gradient(circle, rgba(255,51,102,0.15) 0%, rgba(0,229,255,0.1) 50%, transparent 80%)', filter: 'blur(40px)', zIndex: 0, transform: 'translateZ(-50px)' }}></div>
 
-            <div style={{ position: 'absolute', top: '0%', left: '5%', zIndex: 1, transform: 'translateZ(10px)' }}>
+            <div className="polaroid-wrapper polaroid-1" style={{ position: 'absolute', top: '0%', left: '5%', zIndex: 1, transform: 'translateZ(10px)' }}>
               <div className="polaroid" style={{ transform: 'rotate(12deg) scale(0.8)', boxShadow: '0 20px 40px rgba(0,0,0,0.5), 0 0 30px rgba(255,51,102,0.2)' }}>
                 <img src="/people1.png" alt="Event 1" />
               </div>
             </div>
 
-            <div style={{ position: 'absolute', top: '5%', left: '45%', zIndex: 2, transform: 'translateZ(20px)' }}>
+            <div className="polaroid-wrapper polaroid-2" style={{ position: 'absolute', top: '5%', left: '45%', zIndex: 2, transform: 'translateZ(20px)' }}>
               <div className="polaroid" style={{ transform: 'rotate(-10deg) scale(0.9)', boxShadow: '0 20px 40px rgba(0,0,0,0.5), 0 0 30px rgba(0,229,255,0.2)' }}>
                 <img src="/city.png" alt="Event 2" />
               </div>
             </div>
 
-            <div style={{ position: 'absolute', top: '35%', left: '-5%', zIndex: 3, transform: 'translateZ(30px)' }}>
+            <div className="polaroid-wrapper polaroid-3" style={{ position: 'absolute', top: '35%', left: '-5%', zIndex: 3, transform: 'translateZ(30px)' }}>
               <div className="polaroid" style={{ transform: 'rotate(-8deg) scale(0.95)', boxShadow: '0 20px 40px rgba(0,0,0,0.5), 0 0 30px rgba(255,184,0,0.2)' }}>
                 <img src="/mountains.png" alt="Event 3" />
               </div>
             </div>
 
-            <div style={{ position: 'absolute', top: '30%', left: '50%', zIndex: 5, transform: 'translateZ(40px)' }}>
+            <div className="polaroid-wrapper polaroid-4" style={{ position: 'absolute', top: '30%', left: '50%', zIndex: 5, transform: 'translateZ(40px)' }}>
               <div className="polaroid" style={{ transform: 'rotate(10deg) scale(1)', boxShadow: '0 20px 40px rgba(0,0,0,0.5), 0 0 40px rgba(255,51,102,0.3)' }}>
                 <img src="/people.png" alt="Event 4" />
                 <div style={{ position: 'absolute', top: '40%', left: '50%', transform: 'translate(-50%, -50%)', width: '50px', height: '50px', borderRadius: '50%', border: '1px solid white', display: 'flex', justifyContent: 'center', alignItems: 'center', background: 'rgba(0,0,0,0.4)', backdropFilter: 'blur(2px)' }}><span style={{ color: 'white', fontSize: '16px', marginLeft: '3px' }}>▶</span></div>
               </div>
             </div>
 
-            <div style={{ position: 'absolute', top: '65%', left: '10%', zIndex: 4, transform: 'translateZ(25px)' }}>
+            <div className="polaroid-wrapper polaroid-5" style={{ position: 'absolute', top: '65%', left: '10%', zIndex: 4, transform: 'translateZ(25px)' }}>
               <div className="polaroid" style={{ transform: 'rotate(8deg) scale(0.9)', boxShadow: '0 20px 40px rgba(0,0,0,0.5), 0 0 30px rgba(0,229,255,0.2)' }}>
                 <img src="/cityscape.png" alt="Event 5" />
               </div>
             </div>
 
-            <div style={{ position: 'absolute', top: '60%', left: '40%', zIndex: 6, transform: 'translateZ(35px)' }}>
+            <div className="polaroid-wrapper polaroid-6" style={{ position: 'absolute', top: '60%', left: '40%', zIndex: 6, transform: 'translateZ(35px)' }}>
               <div className="polaroid" style={{ transform: 'rotate(-5deg) scale(0.95)', boxShadow: '0 20px 40px rgba(0,0,0,0.5), 0 0 30px rgba(255,184,0,0.2)' }}>
                 <img src="/people1.png" alt="Event 6" />
               </div>
@@ -731,7 +732,7 @@ export default function App() {
         </div>
         
         {/* Scroll Indicator */}
-        <div style={{ position: 'absolute', bottom: '40px', left: '50%', transform: 'translateX(-50%)', color: 'white', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px' }}>
+        <div className="hero-scroll-indicator" style={{ position: 'absolute', bottom: '40px', left: '50%', transform: 'translateX(-50%)', color: 'white', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px' }}>
           <div style={{ width: '20px', height: '32px', border: '1px solid rgba(255,255,255,0.5)', borderRadius: '10px', display: 'flex', justifyContent: 'center', padding: '4px' }}>
             <div style={{ width: '2px', height: '6px', background: 'white', borderRadius: '1px' }} />
           </div>
@@ -741,14 +742,14 @@ export default function App() {
       </section>
 
       {/* TAB 2: About Virinchi (100vh) */}
-      <section style={{ height: '100vh', display: 'flex', width: '100%', padding: '50px', position: 'relative', zIndex: 100 }}>
+      <section className="tab2-about-section" style={{ height: '100vh', display: 'flex', width: '100%', padding: '50px', position: 'relative', zIndex: 100 }}>
         
         {/* BACKGROUND KITES & LANDSCAPE STRICTLY IN TAB 2 */}
         <AnimeLandscape handRef={handRef} />
         
 
         {/* Content Aligned to the Right (45%) */}
-        <div style={{ 
+        <div className="about-content-wrapper" style={{ 
           width: '45%', 
           marginLeft: 'auto', 
           marginRight: '5%',
@@ -798,10 +799,8 @@ export default function App() {
       </section>
 
       {/* TAB 3 — clip-path allows left/right overflow freely, top overflow for spirals, and bottom overflow for glow spilling onto Tab 4 */}
-      <section style={{ position: 'relative', width: '100%', background: '#0d0614', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 -10px 30px rgba(0,0,0,0.1)', clipPath: 'inset(-200px -100vw -200px -100vw)', zIndex: 110 }}>
+      <section style={{ position: 'relative', width: '100%', background: '#0d0614', display: 'block', boxShadow: '0 -10px 30px rgba(0,0,0,0.1)', clipPath: 'inset(-200px -100vw -200px -100vw)', zIndex: 110 }}>
         <NotebookSection />
-        <NotebookBindingBack binderRef={binderRef} />
-        <NotebookBindingFront />
       </section>
 
       {/* TAB 4: Executive Board (100vh) */}

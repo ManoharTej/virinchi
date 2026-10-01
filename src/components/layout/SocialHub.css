@@ -1035,3 +1035,38 @@
     height: 640px;
   }
 }
+
+@media (max-width: 768px) {
+  .social-hub-wrapper {
+    padding: 0 !important;
+    margin: 0 !important;
+    gap: 0;
+  }
+
+  .social-phone-container {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    height: 100vh !important;
+    max-height: 100vh !important;
+    border-radius: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+
+  .phone-notch-bar {
+    display: none !important;
+  }
+
+  .phone-ig-header {
+    height: 60px !important;
+    padding-top: 15px !important;
+  }
+
+  .instagram-companion-card {
+    display: none !important;
+  }
+
+  .external-nav-arrows {
+    display: none !important;
+  }
+}

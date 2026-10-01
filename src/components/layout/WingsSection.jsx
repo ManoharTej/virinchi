@@ -9,7 +9,7 @@ gsap.registerPlugin(ScrollTrigger);
    GLASSMORPHISM INFO BOX FOR STAGES 2 & 3
 ═══════════════════════════════════════════════════════════ */
 const GlassBox = ({ stageNumber, title, subtitle, description, accentColor, side = 'left', sideOffset = '15%', highlights = [], meterLabel = '' }) => (
-  <div style={{
+  <div className="wings-glass-box" style={{
     position: 'absolute',
     top: '50%',
     transform: 'translateY(-50%)',
@@ -41,7 +41,7 @@ const GlassBox = ({ stageNumber, title, subtitle, description, accentColor, side
       </span>
     </div>
 
-    <h2 style={{
+    <h2 className="wings-glass-title" style={{
       fontSize: 'clamp(2.4rem, 3.4vw, 3.4rem)',
       color: '#fff',
       fontWeight: 900,
@@ -61,7 +61,7 @@ const GlassBox = ({ stageNumber, title, subtitle, description, accentColor, side
       boxShadow: `0 0 16px ${accentColor}`,
     }} />
 
-    <p style={{
+    <p className="wings-glass-desc" style={{
       color: 'rgba(255, 255, 255, 0.82)',
       fontSize: '1.02rem',
       lineHeight: 1.7,
@@ -365,7 +365,7 @@ const WingsSection = () => {
         <div style={{ width: '100vw', height: '100vh', position: 'relative', background: 'linear-gradient(to bottom, #02040f 0%, #08122c 100%)' }}>
           
           {/* Starry Night Background - Left Half */}
-          <div style={{
+          <div className="wings-stage-bg" style={{
             position: 'absolute', top: 0, right: 0, width: '60%', height: '100%',
             zIndex: 0,
             pointerEvents: 'none',
@@ -386,14 +386,14 @@ const WingsSection = () => {
             }} />
           </div>
 
-          <div style={{
+          <div className="wings-stage-bg" style={{
             position: 'absolute', top: '50%', right: 0, width: '60%', height: '30%',
             background: 'linear-gradient(to bottom, transparent, #08122c)',
             zIndex: 0, pointerEvents: 'none'
           }} />
 
           {/* Continuous Stage - Left Half */}
-          <div style={{
+          <div className="wings-stage-bg" style={{
             position: 'absolute', bottom: '40px', right: 0, width: '60%', height: '100%',
             backgroundImage: "url('/stage.png')",
             backgroundSize: '150vw auto',
@@ -406,7 +406,7 @@ const WingsSection = () => {
           }} />
 
           {/* Stage Lights (Focus Beams) */}
-          <div style={{
+          <div className="wings-stage-bg" style={{
             position: 'absolute', top: 0, right: 0, width: '60%', height: '100%', zIndex: 2, pointerEvents: 'none',
             WebkitMaskImage: 'linear-gradient(to right, transparent, black 50px)',
             maskImage: 'linear-gradient(to right, transparent, black 50px)',
@@ -439,7 +439,7 @@ const WingsSection = () => {
           <div className="wings-fog-stage-freaks" style={{ zIndex: 2 }} />
 
           {/* Stage People - Freaks (In front of lights, behind crowd, darkened silhouette with floor smoke) */}
-          <div style={{
+          <div className="wings-performers" style={{
             position: 'absolute', bottom: '26vh', right: '8%',
             width: '280px', height: 'auto',
             zIndex: 4,
@@ -514,7 +514,7 @@ const WingsSection = () => {
           </div>
 
           {/* Continuous Crowd Background - Left Half (In front of performers, zIndex 5) */}
-          <div style={{
+          <div className="wings-stage-bg" style={{
             position: 'absolute', bottom: '-10vh', right: 0, width: '60%', height: '100%',
             backgroundImage: "url('/publicgroup.png')",
             backgroundSize: '140vw auto',
@@ -529,7 +529,7 @@ const WingsSection = () => {
 
 
           {/* Freaks United Logo Image */}
-          <div style={{
+          <div className="wings-panel-logo" style={{
             position: 'absolute', top: '13%', right: '40%',
             width: '140px', height: 'auto',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -566,7 +566,7 @@ const WingsSection = () => {
         <div style={{ width: '100vw', height: '100vh', position: 'relative', background: 'linear-gradient(to bottom, #02040f 0%, #08122c 100%)' }}>
 
           {/* Starry Night Background - Right Half */}
-          <div style={{
+          <div className="wings-stage-bg" style={{
             position: 'absolute', top: 0, left: 0, width: '60%', height: '100%',
             zIndex: 0,
             pointerEvents: 'none',
@@ -588,14 +588,14 @@ const WingsSection = () => {
             }} />
           </div>
 
-          <div style={{
+          <div className="wings-stage-bg" style={{
             position: 'absolute', top: '50%', left: 0, width: '60%', height: '30%',
             background: 'linear-gradient(to bottom, transparent, #08122c)',
             zIndex: 0, pointerEvents: 'none'
           }} />
 
           {/* Continuous Stage - Right Half */}
-          <div style={{
+          <div className="wings-stage-bg" style={{
             position: 'absolute', bottom: '40px', left: 0, width: '60%', height: '100%',
             backgroundImage: "url('/stage.png')",
             backgroundSize: '150vw auto',
@@ -608,7 +608,7 @@ const WingsSection = () => {
           }} />
 
           {/* Stage Lights (Glowing Orbs) */}
-          <div style={{
+          <div className="wings-stage-bg" style={{
             position: 'absolute', top: 0, left: 0, width: '60%', height: '100%', zIndex: 2, pointerEvents: 'none',
             WebkitMaskImage: 'linear-gradient(to left, transparent, black 50px)',
             maskImage: 'linear-gradient(to left, transparent, black 50px)',
@@ -641,7 +641,7 @@ const WingsSection = () => {
           <div className="wings-fog-stage-rythm" style={{ zIndex: 2 }} />
 
           {/* Stage People - Rhythm (In front of lights, behind crowd, darkened silhouette with floor smoke) */}
-          <div style={{
+          <div className="wings-performers" style={{
             position: 'absolute', bottom: '26vh', left: '8%',
             width: '280px', height: 'auto',
             zIndex: 4,
@@ -716,7 +716,7 @@ const WingsSection = () => {
           </div>
 
           {/* Continuous Crowd Background - Right Half (In front of performers, zIndex 5) */}
-          <div style={{
+          <div className="wings-stage-bg" style={{
             position: 'absolute', bottom: '-10vh', left: 0, width: '60%', height: '100%',
             backgroundImage: "url('/publicgroup.png')",
             backgroundSize: '140vw auto',
@@ -731,7 +731,7 @@ const WingsSection = () => {
 
 
           {/* Rhythm Logo Image */}
-          <div style={{
+          <div className="wings-panel-logo" style={{
             position: 'absolute', top: '12%', left: '40%',
             width: '98px', height: 'auto',
             display: 'flex', alignItems: 'center', justifyContent: 'center',

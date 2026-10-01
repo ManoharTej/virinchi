@@ -121,17 +121,127 @@ h1, h2, h3, h4, h5, h6 {
 /* ==========================================================================
    MOBILE RESPONSIVENESS OVERRIDES
    ========================================================================== */
-@media (max-width: 768px) {
-  /* Hero Section Mobile */
-  .hero-chars {
-    width: 100vw !important;
-    left: 0 !important;
-  }
-  
+@media (max-width: 768px) and (orientation: portrait) {
   /* Typography Scaling */
   .h1-title { font-size: clamp(2.5rem, 10vw, 4rem) !important; }
   h2 { font-size: clamp(2rem, 8vw, 3rem) !important; }
   
+  /* ==================== TAB 1: HERO SECTION ==================== */
+  .tab1-hero-section {
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+    padding-top: 80px !important;
+  }
+  
+  .hero-header {
+    padding: 15px 20px !important;
+  }
+  
+  .hero-nav {
+    display: none !important; /* Hide long desktop nav on mobile */
+  }
+  
+  .hero-left-content {
+    padding-left: 0px !important; /* Removed padding to perfectly center */
+    padding-top: 20px !important;
+    align-items: center !important;
+    text-align: center !important;
+    flex: 0 0 auto !important;
+    margin-bottom: 20px !important;
+    width: 100% !important;
+  }
+  
+  .hero-logo-img {
+    width: 100vw !important;
+    max-width: 320px !important;
+    z-index: 10 !important;
+    position: relative !important;
+    margin: 0 auto !important; /* Perfect center */
+  }
+  
+  .hero-left-content p {
+    margin-left: 0 !important;
+    font-size: 0.8rem !important;
+    text-align: center;
+    margin-bottom: 0 !important;
+  }
+  
+  /* Hide unnecessary elements on mobile */
+  .hero-watch-btn,
+  .hero-scroll-indicator {
+    display: none !important;
+  }
+
+  .hero-right-content {
+    flex: 1 1 auto !important;
+    align-items: flex-start !important;
+    margin-top: -20px !important;
+  }
+
+  .hero-polaroid-cluster {
+    /* Scale increased by ~20% and pulled down to yellow line */
+    transform: perspective(1500px) rotateY(0deg) rotateX(0deg) scale(0.55) !important;
+    transform-origin: top center !important;
+    margin-top: 55px !important; /* Moved 5px up */
+    left: -15px !important;
+  }
+  
+  /* Give a 2-5% gap between each polaroid */
+  .polaroid-1 { top: -2% !important; left: -8% !important; }
+  .polaroid-2 { top: 3% !important; left: 52% !important; }
+  
+  .polaroid-3 { top: 35% !important; left: -15% !important; }
+  .polaroid-4 { top: 32% !important; left: 58% !important; }
+  
+  .polaroid-5 { top: 72% !important; left: -5% !important; }
+  .polaroid-6 { top: 68% !important; left: 52% !important; }
+
+  /* ==================== TAB 2: ABOUT SECTION & KITE ==================== */
+  .tab2-about-section {
+    padding: 20px !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+  }
+
+  .about-content-wrapper {
+    width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    margin-top: -6vh !important; /* Move glass box up more */
+  }
+
+  .about-content-wrapper > div {
+    padding: 30px 20px !important;
+  }
+  
+  .about-content-wrapper h2 {
+    font-size: 2.2rem !important;
+  }
+  
+  .about-content-wrapper p {
+    font-size: 0.95rem !important;
+  }
+
+  /* The People foreground */
+  .hero-chars {
+    width: 135vw !important; /* Make people big and cinematic again */
+    left: -5vw !important; /* Barely crop left side to keep everyone visible while pushing the empty right side off screen */
+  }
+
+  /* Reduce kite size and thread thickness by 50% */
+  .main-kite-container {
+    margin-top: 15vh !important; /* Push kite down so it only overlaps bottom half of logo */
+    margin-left: 25vw !important; /* Push kite right to perfectly align with hand */
+  }
+  .main-kite-svg-wrapper {
+    transform: scale(0.5) !important;
+    transform-origin: top center !important;
+  }
+  .kite-string-path {
+    stroke-width: 1px !important;
+  }
+
+  /* ==================== Legacy Overrides for Tabs 3+ ==================== */
   /* Dome Gallery Mobile */
   .gallery-dome-container {
     perspective: 1500px !important;
@@ -145,8 +255,73 @@ h1, h2, h3, h4, h5, h6 {
      so it fits on a portrait screen without breaking GSAP math */
   .events-section-wrapper,
   .wings-section-wrapper,
-  .contact-section,
-  .social-hub-wrapper {
+  .contact-section {
     zoom: 0.5;
+  }
+  
+  .social-hub-wrapper {
+    zoom: 1 !important;
+  }
+}
+
+/* ==================== MOBILE LANDSCAPE (Short Heights) ==================== */
+@media (max-height: 500px) and (orientation: landscape) {
+  .hero-header {
+    padding: 10px 20px !important;
+  }
+  
+  .hero-nav {
+    font-size: 0.75rem !important;
+    gap: 15px !important;
+  }
+
+  .hero-left-content {
+    padding-top: 20px !important;
+    padding-left: 60px !important;
+  }
+  
+  .hero-logo-img {
+    width: 25vw !important; /* Scale logo down heavily */
+    min-width: 150px !important;
+  }
+  
+  .hero-watch-btn {
+    transform: scale(0.7) !important;
+    margin-top: 10px !important;
+  }
+
+  .hero-polaroid-cluster {
+    transform: perspective(1500px) rotateY(-20deg) rotateX(5deg) scale(0.5) !important;
+    transform-origin: center right !important;
+  }
+  
+  .about-content-wrapper {
+    width: 50% !important;
+    margin-top: 5vh !important;
+  }
+  
+  .about-content-wrapper > div {
+    padding: 20px !important;
+  }
+  
+  .about-content-wrapper h2 {
+    font-size: 1.8rem !important;
+    margin-bottom: 10px !important;
+  }
+  
+  .about-content-wrapper p {
+    font-size: 0.85rem !important;
+    line-height: 1.4 !important;
+    margin-bottom: 10px !important;
+  }
+
+  .main-kite-svg-wrapper {
+    transform: scale(0.4) !important;
+    transform-origin: top center !important;
+  }
+  
+  .hero-chars {
+    width: 60vw !important;
+    max-width: 500px !important;
   }
 }

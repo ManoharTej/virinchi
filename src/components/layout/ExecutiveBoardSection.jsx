@@ -284,6 +284,32 @@ export default function ExecutiveBoardSection() {
   const [portfolios, setPortfolios] = useState([
     { title: 'CORE LEADERSHIP', type: 'core', data: coreLeadership }
   ]);
+  const [coreMobileProgress, setCoreMobileProgress] = useState(0);
+  const currentIndexRef = useRef(currentIndex);
+  const autoAdvanceTimeout = useRef(null);
+  const scrollTriggerRef = useRef(null);
+
+  useEffect(() => {
+    currentIndexRef.current = currentIndex;
+  }, [currentIndex]);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    if (window.innerWidth > 768) return;
+
+    if (currentIndex > 0 && currentIndex < portfolios.length - 1) {
+      document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+    }
+    
+    return () => {
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+    };
+  }, [currentIndex, portfolios.length]);
 
   useEffect(() => {
     const fetchPortfolios = async () => {
@@ -318,14 +344,52 @@ export default function ExecutiveBoardSection() {
     );
   }, []);
 
+  const prevIndexRef = useRef(currentIndex);
+
   // View transition animations
   useEffect(() => {
-    const cards = containerRef.current.querySelectorAll('.profile-card');
+    if (typeof window !== 'undefined' && window.innerWidth <= 768 && currentIndex === 0) return;
+    
+    const direction = currentIndex > prevIndexRef.current ? 100 : -100;
+    prevIndexRef.current = currentIndex;
+
+    const cards = containerRef.current.querySelectorAll('.profile-card, .pixel-card');
     gsap.fromTo(cards,
-      { opacity: 0, y: 40, scale: 0.95 },
-      { opacity: 1, y: 0, scale: 1, duration: 0.8, stagger: 0.05, ease: 'back.out(1.5)', clearProps: 'opacity,transform,scale' }
+      { opacity: 0, x: direction, scale: 0.95 },
+      { opacity: 1, x: 0, scale: 1, duration: 0.8, stagger: 0.05, ease: 'back.out(1.5)', clearProps: 'opacity,transform,scale' }
     );
   }, [currentIndex]);
+
+  // Mobile Global ScrollTrigger
+  useEffect(() => {
+    let ctx = gsap.context(() => {
+      if (typeof window !== 'undefined' && window.innerWidth <= 768 && portfolios.length > 1) {
+        const totalSteps = 3;
+        const st = ScrollTrigger.create({
+          trigger: '.executive-board-section',
+          start: 'top top',
+          end: `+=${totalSteps * 100}%`,
+          scrub: 1,
+          pin: true,
+          onUpdate: (self) => {
+            const p = self.progress * 2;
+            setCoreMobileProgress(p);
+          }
+        });
+        scrollTriggerRef.current = st;
+        
+        // Force GSAP to recalculate layout so downstream sections (Tab 5) don't overlap Tab 4
+        setTimeout(() => {
+          ScrollTrigger.sort();
+          ScrollTrigger.refresh();
+        }, 150);
+      }
+    });
+    return () => {
+      ctx.revert();
+      scrollTriggerRef.current = null;
+    };
+  }, [portfolios]);
 
   const handleNext = () => setCurrentIndex(prev => Math.min(prev + 1, portfolios.length - 1));
   const handlePrev = () => setCurrentIndex(prev => Math.max(prev - 1, 0));
@@ -395,6 +459,15 @@ export default function ExecutiveBoardSection() {
           transform: translateY(-50%) scale(1.1) !important;
           box-shadow: 0 0 20px rgba(255, 42, 133, 0.4);
         }
+        @keyframes slow-fade-glow {
+          0% { box-shadow: 0 0 0px rgba(255, 42, 133, 0); background: rgba(255,255,255,0.05); }
+          50% { box-shadow: 0 0 25px rgba(255, 42, 133, 0.9); background: rgba(255,42,133,0.4); border-color: rgba(255,42,133,0.9); }
+          100% { box-shadow: 0 0 0px rgba(255, 42, 133, 0); background: rgba(255,255,255,0.05); }
+        }
+        .nav-btn-core-glow {
+          animation: slow-fade-glow 2s infinite ease-in-out;
+          animation-delay: 1.55s;
+        }
         .eb-title {
           position: absolute;
           color: #ffffff;
@@ -416,6 +489,77 @@ export default function ExecutiveBoardSection() {
           transform: translateX(0);
           font-size: 1.5rem;
         }
+        .portfolio-content-wrapper {
+          width: 100%;
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 60px;
+        }
+        .leads-grid {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 60px;
+        }
+        .oc-grid {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 80px;
+        }
+        @media (max-width: 768px) {
+          .eb-title.center {
+            top: 40px !important;
+            font-size: 3.1rem !important;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            line-height: 1.1;
+          }
+          .eb-subtitle {
+            top: 155px !important;
+            font-size: 0.85rem !important;
+            letter-spacing: 2px !important;
+            border: 1px solid rgba(255,255,255,0.4);
+            padding: 5px 15px !important;
+            border-radius: 5px;
+          }
+          .core-desktop-container { display: none !important; }
+          .core-mobile-container { display: block !important; transform: scale(1.15); transform-origin: top center; }
+          .nav-btn { 
+            display: flex !important; 
+            width: 40px !important; 
+            height: 40px !important; 
+            font-size: 1rem !important; 
+          }
+          .nav-btn-left { left: 5px !important; }
+          .nav-btn-right { right: 5px !important; }
+          .mobile-container-wrapper { 
+            flex: 1 !important;
+            min-height: 0 !important;
+            margin-top: 60px !important;
+            width: 100% !important;
+            align-items: stretch !important;
+          }
+          .portfolio-mobile-scroll { 
+            height: 100% !important; 
+            width: 100% !important;
+            overflow-y: auto !important; 
+            padding-bottom: 80px !important;
+            padding-top: 10px !important;
+            display: block !important;
+            flex: none !important;
+          }
+          .portfolio-content-wrapper {
+            display: block !important;
+            flex: none !important;
+          }
+          .leads-grid { gap: 30px !important; }
+          .oc-grid { gap: 40px !important; }
+        }
       `}</style>
       {/* Subtle Background Elements */}
       <div style={{ position: 'absolute', top: '20%', left: '-10%', width: '50vw', height: '50vw', background: 'radial-gradient(circle, rgba(255,42,133,0.05) 0%, transparent 70%)', filter: 'blur(60px)', pointerEvents: 'none' }} />
@@ -427,7 +571,7 @@ export default function ExecutiveBoardSection() {
       </h2>
 
       {/* Tab 0: Core Leadership Static Title */}
-      <h3 style={{ 
+      <h3 className="eb-subtitle" style={{ 
         position: 'absolute', top: '120px', left: '50%', transform: 'translateX(-50%)',
         color: '#ffffff', fontSize: '1.5rem', margin: 0, textTransform: 'uppercase', letterSpacing: '4px', zIndex: 10,
         opacity: currentIndex === 0 ? 1 : 0, transition: 'opacity 0.5s ease', pointerEvents: 'none'
@@ -454,44 +598,125 @@ export default function ExecutiveBoardSection() {
       </div>
 
       {/* LEFT NAVIGATION ARROW */}
-      <button className="nav-btn" onClick={handlePrev} disabled={currentIndex === 0} style={{ position: 'absolute', left: '30px', top: '50%', transform: 'translateY(-50%)', zIndex: 50, opacity: currentIndex === 0 ? 0.3 : 1 }}>&lt;</button>
+      <button className="nav-btn nav-btn-left" onClick={handlePrev} disabled={currentIndex === 0} style={{ 
+        position: 'absolute', left: '30px', top: '50%', transform: 'translateY(-50%)', zIndex: 50, 
+        opacity: currentIndex === 0 ? 0 : 1, pointerEvents: currentIndex === 0 ? 'none' : 'auto' 
+      }}>&lt;</button>
 
       {/* RIGHT NAVIGATION ARROW */}
-      <button className="nav-btn" onClick={handleNext} disabled={currentIndex === portfolios.length - 1} style={{ position: 'absolute', right: '30px', top: '50%', transform: 'translateY(-50%)', zIndex: 50, opacity: currentIndex === portfolios.length - 1 ? 0.3 : 1 }}>&gt;</button>
+      <button className={`nav-btn nav-btn-right ${currentIndex === 0 && (typeof window === 'undefined' || window.innerWidth > 768 || coreMobileProgress >= 1.8) ? 'nav-btn-core-glow' : ''}`} onClick={handleNext} disabled={currentIndex === portfolios.length - 1} style={{ 
+        position: 'absolute', right: '30px', top: '50%', transform: 'translateY(-50%)', zIndex: 50, 
+        opacity: currentIndex === portfolios.length - 1 ? 0.3 : (currentIndex === 0 && typeof window !== 'undefined' && window.innerWidth <= 768 && coreMobileProgress < 1.8) ? 0 : 1, 
+        pointerEvents: (currentIndex === 0 && typeof window !== 'undefined' && window.innerWidth <= 768 && coreMobileProgress < 1.8) ? 'none' : 'auto',
+        transition: 'opacity 0.5s ease'
+      }}>&gt;</button>
 
       {/* Dynamic Grid Layouts based on portfolio */}
-      <div ref={containerRef} style={{ 
+      <div ref={containerRef} className="mobile-container-wrapper" style={{ 
         width: '100%', maxWidth: '1400px', zIndex: 2, display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '50px', 
         marginTop: currentIndex === 0 ? '55px' : '10px',
         transition: 'margin-top 1.2s cubic-bezier(0.25, 1, 0.5, 1)'
       }}>
         
-        {portfolios[currentIndex].type === 'core' && portfolios[currentIndex].data.map((member, i) => (
-          <div key={member.id}>
-            <ProfileCard 
-              name={member.name}
-              title={member.role}
-              handle="virinchiclub"
-              status="Executive"
-              contactText="Connect"
-              avatarUrl={member.image || "/virinchi_logo.png"}
-              avatarBottom={i === 0 ? '50px' : '65px'}
-              showUserInfo={false}
-              enableTilt={true}
-              enableMobileTilt={true}
-              behindGlowColor={i === 0 ? "rgba(255, 42, 133, 0.67)" : i === 1 ? "rgba(125, 190, 255, 0.67)" : "rgba(255, 255, 42, 0.67)"}
-              innerGradient="linear-gradient(145deg,#2a1122 0%,#0d0614 100%)"
-              behindGlowEnabled={true}
-            />
-          </div>
-        ))}
+        {portfolios[currentIndex].type === 'core' && (
+          <>
+            <div className="core-desktop-container" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '50px', width: '100%' }}>
+              {portfolios[currentIndex].data.map((member, i) => (
+                <div key={member.id}>
+                  <ProfileCard 
+                    name={member.name}
+                    title={member.role}
+                    handle="virinchiclub"
+                    status="Executive"
+                    contactText="Connect"
+                    avatarUrl={member.image || "/virinchi_logo.png"}
+                    avatarBottom={i === 0 ? '50px' : '65px'}
+                    showUserInfo={false}
+                    enableTilt={true}
+                    enableMobileTilt={true}
+                    behindGlowColor={i === 0 ? "rgba(255, 42, 133, 0.67)" : i === 1 ? "rgba(125, 190, 255, 0.67)" : "rgba(255, 255, 42, 0.67)"}
+                    innerGradient="linear-gradient(145deg,#2a1122 0%,#0d0614 100%)"
+                    behindGlowEnabled={true}
+                  />
+                </div>
+              ))}
+            </div>
+
+            <div className="core-mobile-container" style={{ position: 'relative', width: '290px', height: '400px', display: 'none' }}>
+              {portfolios[currentIndex].data.map((member, i) => {
+                const op = Math.max(0, Math.min(1, 1 - Math.abs(coreMobileProgress - i)));
+                return (
+                  <div className={`core-mobile-card-${i}`} key={`mob-${member.id}`} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', opacity: op, pointerEvents: op > 0.5 ? 'auto' : 'none' }}>
+                    <ProfileCard 
+                      name={member.name}
+                      title={member.role}
+                      handle="virinchiclub"
+                      status="Executive"
+                      contactText="Connect"
+                      avatarUrl={member.image || "/virinchi_logo.png"}
+                      avatarBottom={i === 0 ? '50px' : '65px'}
+                      showUserInfo={false}
+                      enableTilt={true}
+                      enableMobileTilt={true}
+                      behindGlowColor={i === 0 ? "rgba(255, 42, 133, 0.67)" : i === 1 ? "rgba(125, 190, 255, 0.67)" : "rgba(255, 255, 42, 0.67)"}
+                      innerGradient="linear-gradient(145deg,#2a1122 0%,#0d0614 100%)"
+                      behindGlowEnabled={true}
+                    />
+                  </div>
+                );
+              })}
+            </div>
+          </>
+        )}
 
         {portfolios[currentIndex].type === 'portfolio' && (
-          <div style={{ width: '100%', flex: 1, display: 'flex', flexDirection: 'column' }}>
+          <div 
+            className="portfolio-mobile-scroll portfolio-content-wrapper"
+            onScroll={(e) => {
+              if (typeof window !== 'undefined' && window.innerWidth > 768) return;
+              const target = e.target;
+              const { scrollTop, scrollHeight, clientHeight } = target;
+              
+              if (scrollTop + clientHeight >= scrollHeight - 20) {
+                if (currentIndex > 0 && currentIndex < portfolios.length - 1) {
+                  if (!autoAdvanceTimeout.current) {
+                    autoAdvanceTimeout.current = setTimeout(() => {
+                      setCurrentIndex(prev => prev + 1);
+                      target.scrollTop = 0;
+                      autoAdvanceTimeout.current = null;
+                    }, 500);
+                  }
+                } else if (currentIndex === portfolios.length - 1) {
+                  if (!autoAdvanceTimeout.current) {
+                    autoAdvanceTimeout.current = setTimeout(() => {
+                      if (scrollTriggerRef.current) {
+                        window.scrollTo({
+                          top: scrollTriggerRef.current.end + 20,
+                          behavior: 'smooth'
+                        });
+                      }
+                      autoAdvanceTimeout.current = null;
+                    }, 500);
+                  }
+                }
+              } else {
+                if (autoAdvanceTimeout.current) {
+                  clearTimeout(autoAdvanceTimeout.current);
+                  autoAdvanceTimeout.current = null;
+                }
+              }
+            }}
+          >
             {/* LEADS SECTION */}
-            <div style={{ flex: '1', minHeight: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', transform: 'translateY(0px)' }}>
-              <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '60px' }}>
-                {portfolios[currentIndex].leads.map((member, i) => (
+            <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '40px' }}>
+              <div className="leads-grid">
+                {[...portfolios[currentIndex].leads]
+                  .sort((a, b) => {
+                    const aIsCoLead = (a.role || '').toLowerCase().includes('co-lead') ? 1 : 0;
+                    const bIsCoLead = (b.role || '').toLowerCase().includes('co-lead') ? 1 : 0;
+                    return aIsCoLead - bIsCoLead;
+                  })
+                  .map((member, i) => (
                   <div key={member.id}>
                     <PixelCard variant={i % 2 === 0 ? "pink" : "blue"}>
                       <div className="lead-card-content">
@@ -511,8 +736,8 @@ export default function ExecutiveBoardSection() {
 
             {/* OC SECTION */}
             {portfolios[currentIndex].oc && portfolios[currentIndex].oc.length > 0 && (
-              <div style={{ flex: '1', minHeight: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', transform: 'translateY(20px)' }}>
-                <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '80px' }}>
+              <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <div className="oc-grid">
                   {portfolios[currentIndex].oc.map(member => (
                     <BasicProfileCard key={member.id} {...member} role="OC" avatarUrl={member.image || undefined} size="oc" portfolioName={portfolios[currentIndex].title} />
                   ))}
