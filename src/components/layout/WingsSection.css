@@ -498,20 +498,9 @@
     margin-bottom: 12px !important;
   }
 
-  .wings-glass-box > div:nth-of-type(3) {
-    gap: 6px !important;
-    margin-bottom: 12px !important;
-  }
-
-  .wings-glass-box > div:nth-of-type(3) > div {
-    font-size: 0.7rem !important;
-    padding: 6px 12px !important;
-    border-radius: 8px !important;
-  }
-
-  .wings-glass-box > div:nth-of-type(4) {
-    padding-top: 10px !important;
-    font-size: 0.65rem !important;
+  .wings-glass-highlights,
+  .wings-glass-meter {
+    display: none !important;
   }
   
   /* Performers */

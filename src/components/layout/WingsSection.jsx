@@ -69,7 +69,7 @@ const GlassBox = ({ stageNumber, title, subtitle, description, accentColor, side
     }}>{description}</p>
 
     {highlights.length > 0 && (
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '25px' }}>
+      <div className="wings-glass-highlights" style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '25px' }}>
         {highlights.map((item, idx) => (
           <div key={idx} style={{
             display: 'flex',
@@ -90,7 +90,7 @@ const GlassBox = ({ stageNumber, title, subtitle, description, accentColor, side
     )}
 
     {meterLabel && (
-      <div style={{
+      <div className="wings-glass-meter" style={{
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
@@ -398,8 +398,8 @@ const WingsSection = () => {
           <div className="wings-stage-bg" style={{
             position: 'absolute', bottom: '40px', right: 0, width: '60%', height: '100%',
             backgroundImage: "url('/stage.png')",
-            backgroundSize: isMobile ? '150% auto' : '150vw auto',
-            backgroundPosition: isMobile ? 'center bottom' : '-15vw bottom',
+            backgroundSize: isMobile ? '200vw auto' : '150vw auto',
+            backgroundPosition: isMobile ? 'left bottom' : '-15vw bottom',
             backgroundRepeat: 'no-repeat',
             zIndex: 1,
             pointerEvents: 'none',
@@ -425,8 +425,8 @@ const WingsSection = () => {
                 position: 'absolute',
                 bottom: '40px',
                 left: isMobile ? '0vw' : '-15vw',
-                width: isMobile ? '100vw' : '150vw',
-                height: isMobile ? '70vw' : '51.66vw',
+                width: isMobile ? '200vw' : '150vw',
+                height: isMobile ? '140vw' : '51.66vw',
                 pointerEvents: 'auto' // Needed to capture clicks
               }}
             >
@@ -519,8 +519,8 @@ const WingsSection = () => {
           <div className="wings-stage-bg" style={{
             position: 'absolute', bottom: isMobile ? '-5vh' : '-10vh', right: 0, width: '60%', height: '100%',
             backgroundImage: "url('/publicgroup.png')",
-            backgroundSize: isMobile ? '150% auto' : '140vw auto',
-            backgroundPosition: isMobile ? 'center bottom' : '-10vw bottom',
+            backgroundSize: isMobile ? '200vw auto' : '140vw auto',
+            backgroundPosition: isMobile ? 'left bottom' : '-10vw bottom',
             backgroundRepeat: 'no-repeat',
             opacity: 1,
             zIndex: 5,
@@ -600,8 +600,8 @@ const WingsSection = () => {
           <div className="wings-stage-bg" style={{
             position: 'absolute', bottom: '40px', left: 0, width: '60%', height: '100%',
             backgroundImage: "url('/stage.png')",
-            backgroundSize: isMobile ? '150% auto' : '150vw auto',
-            backgroundPosition: isMobile ? 'center bottom' : '-75vw bottom',
+            backgroundSize: isMobile ? '200vw auto' : '150vw auto',
+            backgroundPosition: isMobile ? 'right bottom' : '-75vw bottom',
             backgroundRepeat: 'no-repeat',
             zIndex: 1,
             pointerEvents: 'none',
@@ -626,9 +626,9 @@ const WingsSection = () => {
               style={{
                 position: 'absolute',
                 bottom: '40px',
-                left: isMobile ? '0vw' : '-75vw',
-                width: isMobile ? '100vw' : '150vw',
-                height: isMobile ? '70vw' : '51.66vw',
+                left: isMobile ? '-100vw' : '-75vw',
+                width: isMobile ? '200vw' : '150vw',
+                height: isMobile ? '140vw' : '51.66vw',
                 pointerEvents: 'auto' // Needed to capture clicks
               }}
             >
@@ -721,8 +721,8 @@ const WingsSection = () => {
           <div className="wings-stage-bg" style={{
             position: 'absolute', bottom: isMobile ? '-5vh' : '-10vh', left: 0, width: '60%', height: '100%',
             backgroundImage: "url('/publicgroup.png')",
-            backgroundSize: isMobile ? '150% auto' : '140vw auto',
-            backgroundPosition: isMobile ? 'center bottom' : '-70vw bottom',
+            backgroundSize: isMobile ? '200vw auto' : '140vw auto',
+            backgroundPosition: isMobile ? 'right bottom' : '-70vw bottom',
             backgroundRepeat: 'no-repeat',
             opacity: 1,
             zIndex: 5,
