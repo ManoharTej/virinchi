@@ -517,10 +517,10 @@ const WingsSection = () => {
 
           {/* Continuous Crowd Background - Left Half (In front of performers, zIndex 5) */}
           <div className="wings-stage-bg" style={{
-            position: 'absolute', bottom: isMobile ? '-2vh' : '-10vh', right: 0, width: '60%', height: '100%',
+            position: 'absolute', bottom: isMobile ? 'calc(-2vh - 100px)' : '-10vh', right: 0, width: '60%', height: '100%',
             backgroundImage: "url('/publicgroup.png')",
             backgroundSize: isMobile ? '330vw auto' : '140vw auto',
-            backgroundPosition: isMobile ? '-15vw bottom' : '-10vw bottom',
+            backgroundPosition: isMobile ? 'calc(-15vw - 50px) bottom' : '-10vw bottom',
             backgroundRepeat: 'no-repeat',
             opacity: 1,
             zIndex: 5,
@@ -719,10 +719,10 @@ const WingsSection = () => {
 
           {/* Continuous Crowd Background - Right Half (In front of performers, zIndex 5) */}
           <div className="wings-stage-bg" style={{
-            position: 'absolute', bottom: isMobile ? '-2vh' : '-10vh', left: 0, width: '60%', height: '100%',
+            position: 'absolute', bottom: isMobile ? 'calc(-2vh - 100px)' : '-10vh', left: 0, width: '60%', height: '100%',
             backgroundImage: "url('/publicgroup.png')",
             backgroundSize: isMobile ? '330vw auto' : '140vw auto',
-            backgroundPosition: isMobile ? '-115vw bottom' : '-70vw bottom',
+            backgroundPosition: isMobile ? 'calc(-115vw - 50px) bottom' : '-70vw bottom',
             backgroundRepeat: 'no-repeat',
             opacity: 1,
             zIndex: 5,
