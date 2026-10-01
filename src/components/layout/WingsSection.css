@@ -180,6 +180,7 @@
   text-transform: uppercase;
   color: rgba(255,255,255,0.8);
   margin-top: 30px;
+  margin-right: -12px;
   opacity: 0;
   transform: translateY(10px);
   transition: opacity 1.5s cubic-bezier(0.25, 0.1, 0.25, 1), transform 1.5s cubic-bezier(0.25, 0.1, 0.25, 1);
@@ -509,7 +510,7 @@
 
   /* Panel 1 (Intro) */
   .wings-revealed-logo {
-    height: 130px !important;
+    height: 140px !important;
   }
   .elegant-title-box-freaks {
     left: 50% !important;
@@ -533,5 +534,14 @@
   }
   .elegant-text {
     font-size: 2rem !important;
+  }
+  
+  .wings-scroll-ready-hint {
+    bottom: 20px !important;
+    font-size: 0.6rem !important;
+  }
+  
+  .wings-scroll-ready-hint.active {
+    opacity: 0.4 !important;
   }
 }
