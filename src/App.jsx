@@ -203,7 +203,15 @@ const KiteSystem = ({ handRef }) => {
       const sy = window.scrollY;
       const vh = window.innerHeight;
       
-      // OPTIMIZATION: If we are scrolled past Tab 2, DO NOT read/write DOM to prevent layout thrashing for other Tabs
+      // Ensure kite doesn't get stuck if we scroll fast
+      if (sy > vh * 2.5 && kiteContainerRef.current.style.opacity !== '0') {
+         kiteContainerRef.current.style.opacity = '0';
+         if (stringRef.current) stringRef.current.style.opacity = '0';
+      } else if (sy <= vh * 2.5 && kiteContainerRef.current.style.opacity === '0') {
+         kiteContainerRef.current.style.opacity = '1';
+         if (stringRef.current) stringRef.current.style.opacity = '1';
+      }
+      
       if (sy > vh * 2.5) {
         requestAnimationFrame(updateKite);
         return;
